@@ -5,7 +5,7 @@ from ...abstract import AbstractPrintableTable, AbstractPrintableJSON
 
 
 class ListAccountsCommand(AbstractPrintableTable, AbstractPrintableJSON):
-    _table_headers = ["Account ID", "Client ID", "Client Status"]
+    _table_headers = ["Account UUID", "Name", "Client ID", "Status"]
 
     def __init__(self, configuration: vvcli_sdk.Configuration):
         self._configuration = configuration
@@ -13,7 +13,7 @@ class ListAccountsCommand(AbstractPrintableTable, AbstractPrintableJSON):
     async def _gen_table_rows(self, accounts: List[dict]):
         accounts_info = []
         for acc in accounts:
-            accounts_info.append((acc["uuid"], acc["clientId"], acc["clientStatus"]))
+            accounts_info.append((acc["uuid"], acc["clientName"], acc["clientId"], acc["clientStatus"]))
         return accounts_info
 
     async def execute(self, return_json=False):

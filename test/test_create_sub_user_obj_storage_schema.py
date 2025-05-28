@@ -14,10 +14,10 @@
 
 import unittest
 
-from vvcli_sdk.models.login_schema import LoginSchema
+from vvcli_sdk.models.create_sub_user_obj_storage_schema import CreateSubUserObjStorageSchema
 
-class TestLoginSchema(unittest.TestCase):
-    """LoginSchema unit test stubs"""
+class TestCreateSubUserObjStorageSchema(unittest.TestCase):
+    """CreateSubUserObjStorageSchema unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,28 +25,30 @@ class TestLoginSchema(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> LoginSchema:
-        """Test LoginSchema
+    def make_instance(self, include_optional) -> CreateSubUserObjStorageSchema:
+        """Test CreateSubUserObjStorageSchema
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `LoginSchema`
+        # uncomment below to create an instance of `CreateSubUserObjStorageSchema`
         """
-        model = LoginSchema()
+        model = CreateSubUserObjStorageSchema()
         if include_optional:
-            return LoginSchema(
-                email = '',
-                password = ''
+            return CreateSubUserObjStorageSchema(
+                client_id = '',
+                display_name = '',
+                access = 'read'
             )
         else:
-            return LoginSchema(
-                email = '',
-                password = '',
+            return CreateSubUserObjStorageSchema(
+                client_id = '',
+                display_name = '',
+                access = 'read',
         )
         """
 
-    def testLoginSchema(self):
-        """Test LoginSchema"""
+    def testCreateSubUserObjStorageSchema(self):
+        """Test CreateSubUserObjStorageSchema"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

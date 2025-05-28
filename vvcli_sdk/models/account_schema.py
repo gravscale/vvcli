@@ -28,8 +28,9 @@ class AccountSchema(BaseModel):
     """ # noqa: E501
     uuid: StrictStr
     client_id: StrictInt = Field(alias="clientId")
+    client_name: StrictStr = Field(alias="clientName")
     client_status: StrictStr = Field(alias="clientStatus")
-    __properties: ClassVar[List[str]] = ["uuid", "clientId", "clientStatus"]
+    __properties: ClassVar[List[str]] = ["uuid", "clientId", "clientName", "clientStatus"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -84,6 +85,7 @@ class AccountSchema(BaseModel):
         _obj = cls.model_validate({
             "uuid": obj.get("uuid"),
             "clientId": obj.get("clientId"),
+            "clientName": obj.get("clientName"),
             "clientStatus": obj.get("clientStatus")
         })
         return _obj

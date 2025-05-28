@@ -35,11 +35,13 @@ class TestAuthInfoSchema(unittest.TestCase):
         model = AuthInfoSchema()
         if include_optional:
             return AuthInfoSchema(
+                srn = '',
                 email = '',
                 nickname = ''
             )
         else:
             return AuthInfoSchema(
+                srn = '',
                 email = '',
                 nickname = '',
         )

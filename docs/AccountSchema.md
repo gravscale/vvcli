@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **uuid** | **str** |  | 
 **client_id** | **int** |  | 
+**client_name** | **str** |  | 
 **client_status** | **str** |  | 
 
 ## Example

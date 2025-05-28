@@ -29,10 +29,5 @@ class ConfigureAuthenticateCommand(AbstractReadInputValue):
 
     async def execute(self):
         await self._validate()
-        with vvcli_sdk.ApiClient(
-            self._cli_config.load_sdk_configuration()
-        ) as api_client:
-            api_instance = vvcli_sdk.AuthenticationApi(api_client)
-            authorization = api_instance.api_token(self._token)
-        self._cli_config.save_authorization(authorization)
-        click.echo("User successfully authenticated!")
+        self._cli_config.save_authorization(self._token)
+        click.echo("Credential successfully saved!")

@@ -17,21 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
-class AuthorizationSchema(BaseModel):
+class CredentialKey(BaseModel):
     """
-    AuthorizationSchema
+    CredentialKey
     """ # noqa: E501
-    access_token: StrictStr = Field(alias="accessToken")
-    refresh_token: Optional[StrictStr] = Field(default=None, alias="refreshToken")
-    type: StrictStr
-    expires_at: datetime = Field(alias="expiresAt")
-    __properties: ClassVar[List[str]] = ["accessToken", "refreshToken", "type", "expiresAt"]
+    access_key: StrictStr = Field(alias="accessKey")
+    secret_key: StrictStr = Field(alias="secretKey")
+    __properties: ClassVar[List[str]] = ["accessKey", "secretKey"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +48,7 @@ class AuthorizationSchema(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AuthorizationSchema from a JSON string"""
+        """Create an instance of CredentialKey from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,16 +69,11 @@ class AuthorizationSchema(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if refresh_token (nullable) is None
-        # and model_fields_set contains the field
-        if self.refresh_token is None and "refresh_token" in self.model_fields_set:
-            _dict['refreshToken'] = None
-
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AuthorizationSchema from a dict"""
+        """Create an instance of CredentialKey from a dict"""
         if obj is None:
             return None
 
@@ -89,10 +81,8 @@ class AuthorizationSchema(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "accessToken": obj.get("accessToken"),
-            "refreshToken": obj.get("refreshToken"),
-            "type": obj.get("type"),
-            "expiresAt": obj.get("expiresAt")
+            "accessKey": obj.get("accessKey"),
+            "secretKey": obj.get("secretKey")
         })
         return _obj
 

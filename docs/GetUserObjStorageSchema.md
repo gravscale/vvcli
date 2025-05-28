@@ -7,10 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **user_srn** | **str** |  | 
 **display_name** | **str** |  | 
-**email** | **str** |  | 
 **client_id** | **str** |  | 
-**access_key** | **str** |  | 
-**secret_key** | **str** |  | 
 
 ## Example
 

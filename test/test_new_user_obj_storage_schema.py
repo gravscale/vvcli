@@ -14,10 +14,10 @@
 
 import unittest
 
-from vvcli_sdk.models.page_account_schema import PageAccountSchema
+from vvcli_sdk.models.new_user_obj_storage_schema import NewUserObjStorageSchema
 
-class TestPageAccountSchema(unittest.TestCase):
-    """PageAccountSchema unit test stubs"""
+class TestNewUserObjStorageSchema(unittest.TestCase):
+    """NewUserObjStorageSchema unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,45 +25,35 @@ class TestPageAccountSchema(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> PageAccountSchema:
-        """Test PageAccountSchema
+    def make_instance(self, include_optional) -> NewUserObjStorageSchema:
+        """Test NewUserObjStorageSchema
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `PageAccountSchema`
+        # uncomment below to create an instance of `NewUserObjStorageSchema`
         """
-        model = PageAccountSchema()
+        model = NewUserObjStorageSchema()
         if include_optional:
-            return PageAccountSchema(
-                items = [
-                    vvcli_sdk.models.account_schema.AccountSchema(
-                        uuid = '', 
-                        client_id = 56, 
-                        client_name = '', 
-                        client_status = '', )
-                    ],
-                total = 0.0,
-                page = 1.0,
-                size = 1.0,
-                pages = 0.0
+            return NewUserObjStorageSchema(
+                user_srn = '',
+                display_name = '',
+                client_id = '',
+                keys = [
+                    vvcli_sdk.models.credential_key.CredentialKey(
+                        access_key = '', 
+                        secret_key = '', )
+                    ]
             )
         else:
-            return PageAccountSchema(
-                items = [
-                    vvcli_sdk.models.account_schema.AccountSchema(
-                        uuid = '', 
-                        client_id = 56, 
-                        client_name = '', 
-                        client_status = '', )
-                    ],
-                total = 0.0,
-                page = 1.0,
-                size = 1.0,
+            return NewUserObjStorageSchema(
+                user_srn = '',
+                display_name = '',
+                client_id = '',
         )
         """
 
-    def testPageAccountSchema(self):
-        """Test PageAccountSchema"""
+    def testNewUserObjStorageSchema(self):
+        """Test NewUserObjStorageSchema"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

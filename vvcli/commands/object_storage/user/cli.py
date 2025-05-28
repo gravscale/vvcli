@@ -1,5 +1,6 @@
 import asyncclick as click
 
+from .usecase import GetUserObjectStorageCommand
 from .... import CliConfiguration
 from .usecase.create_user import CreateObjectStorageUserCommand
 
@@ -23,3 +24,22 @@ async def obj_user_group():
 async def add_user(obj, client_id: str, json: bool):
     cli_config: CliConfiguration = obj["config"]
     await CreateObjectStorageUserCommand(client_id, cli_config.load_sdk_configuration()).execute(json)
+
+
+
+@obj_user_group.command("get", help="Get client user for object storage")
+@click.option("--client-id", "-c", required=False, type=str, help="Client ID")
+@click.option(
+    "--json",
+    "-j",
+    is_flag=True,
+    default=False,
+    type=bool,
+    help="Returned result as JSON",
+)
+@click.pass_obj
+async def get_user(obj, client_id: str, json: bool):
+    cli_config: CliConfiguration = obj["config"]
+    await GetUserObjectStorageCommand(client_id, cli_config.load_sdk_configuration()).execute(json)
+
+

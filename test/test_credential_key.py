@@ -14,10 +14,10 @@
 
 import unittest
 
-from vvcli_sdk.models.page_account_schema import PageAccountSchema
+from vvcli_sdk.models.credential_key import CredentialKey
 
-class TestPageAccountSchema(unittest.TestCase):
-    """PageAccountSchema unit test stubs"""
+class TestCredentialKey(unittest.TestCase):
+    """CredentialKey unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,45 +25,28 @@ class TestPageAccountSchema(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> PageAccountSchema:
-        """Test PageAccountSchema
+    def make_instance(self, include_optional) -> CredentialKey:
+        """Test CredentialKey
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `PageAccountSchema`
+        # uncomment below to create an instance of `CredentialKey`
         """
-        model = PageAccountSchema()
+        model = CredentialKey()
         if include_optional:
-            return PageAccountSchema(
-                items = [
-                    vvcli_sdk.models.account_schema.AccountSchema(
-                        uuid = '', 
-                        client_id = 56, 
-                        client_name = '', 
-                        client_status = '', )
-                    ],
-                total = 0.0,
-                page = 1.0,
-                size = 1.0,
-                pages = 0.0
+            return CredentialKey(
+                access_key = '',
+                secret_key = ''
             )
         else:
-            return PageAccountSchema(
-                items = [
-                    vvcli_sdk.models.account_schema.AccountSchema(
-                        uuid = '', 
-                        client_id = 56, 
-                        client_name = '', 
-                        client_status = '', )
-                    ],
-                total = 0.0,
-                page = 1.0,
-                size = 1.0,
+            return CredentialKey(
+                access_key = '',
+                secret_key = '',
         )
         """
 
-    def testPageAccountSchema(self):
-        """Test PageAccountSchema"""
+    def testCredentialKey(self):
+        """Test CredentialKey"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

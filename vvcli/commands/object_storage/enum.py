@@ -6,3 +6,5 @@ class EnumObjectStoragePrintableAttributes(str, Enum):
     EMAIL = "E-mail"
     PASSWORD = "Password"
     API_TOKEN = "Auth Token"
+    ACCESS = "Access"
+    DISPLAY_NAME = "Display Name"

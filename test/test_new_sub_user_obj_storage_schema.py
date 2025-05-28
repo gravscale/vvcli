@@ -14,10 +14,10 @@
 
 import unittest
 
-from vvcli_sdk.models.authorization_schema import AuthorizationSchema
+from vvcli_sdk.models.new_sub_user_obj_storage_schema import NewSubUserObjStorageSchema
 
-class TestAuthorizationSchema(unittest.TestCase):
-    """AuthorizationSchema unit test stubs"""
+class TestNewSubUserObjStorageSchema(unittest.TestCase):
+    """NewSubUserObjStorageSchema unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,31 +25,35 @@ class TestAuthorizationSchema(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> AuthorizationSchema:
-        """Test AuthorizationSchema
+    def make_instance(self, include_optional) -> NewSubUserObjStorageSchema:
+        """Test NewSubUserObjStorageSchema
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `AuthorizationSchema`
+        # uncomment below to create an instance of `NewSubUserObjStorageSchema`
         """
-        model = AuthorizationSchema()
+        model = NewSubUserObjStorageSchema()
         if include_optional:
-            return AuthorizationSchema(
-                access_token = '',
-                refresh_token = '',
-                type = '',
-                expires_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
+            return NewSubUserObjStorageSchema(
+                user_srn = '',
+                display_name = '',
+                client_id = '',
+                keys = [
+                    vvcli_sdk.models.credential_key.CredentialKey(
+                        access_key = '', 
+                        secret_key = '', )
+                    ]
             )
         else:
-            return AuthorizationSchema(
-                access_token = '',
-                type = '',
-                expires_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+            return NewSubUserObjStorageSchema(
+                user_srn = '',
+                display_name = '',
+                client_id = '',
         )
         """
 
-    def testAuthorizationSchema(self):
-        """Test AuthorizationSchema"""
+    def testNewSubUserObjStorageSchema(self):
+        """Test NewSubUserObjStorageSchema"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

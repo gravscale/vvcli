@@ -17,19 +17,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
+from vvcli_sdk.models.access_permissions import AccessPermissions
 from typing import Optional, Set
 from typing_extensions import Self
 
-class AuthInfoSchema(BaseModel):
+class CreateSubUserObjStorageSchema(BaseModel):
     """
-    AuthInfoSchema
+    CreateSubUserObjStorageSchema
     """ # noqa: E501
-    srn: StrictStr
-    email: StrictStr
-    nickname: StrictStr
-    __properties: ClassVar[List[str]] = ["srn", "email", "nickname"]
+    client_id: StrictStr = Field(alias="clientId")
+    display_name: StrictStr = Field(alias="displayName")
+    access: AccessPermissions
+    __properties: ClassVar[List[str]] = ["clientId", "displayName", "access"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -49,7 +50,7 @@ class AuthInfoSchema(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AuthInfoSchema from a JSON string"""
+        """Create an instance of CreateSubUserObjStorageSchema from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -74,7 +75,7 @@ class AuthInfoSchema(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AuthInfoSchema from a dict"""
+        """Create an instance of CreateSubUserObjStorageSchema from a dict"""
         if obj is None:
             return None
 
@@ -82,9 +83,9 @@ class AuthInfoSchema(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "srn": obj.get("srn"),
-            "email": obj.get("email"),
-            "nickname": obj.get("nickname")
+            "clientId": obj.get("clientId"),
+            "displayName": obj.get("displayName"),
+            "access": obj.get("access")
         })
         return _obj
 

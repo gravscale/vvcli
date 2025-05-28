@@ -14,25 +14,20 @@
 
 import unittest
 
-from vvcli_sdk.api.authentication_api import AuthenticationApi
+from vvcli_sdk.models.access_permissions import AccessPermissions
 
+class TestAccessPermissions(unittest.TestCase):
+    """AccessPermissions unit test stubs"""
 
-class TestAuthenticationApi(unittest.TestCase):
-    """AuthenticationApi unit test stubs"""
-
-    def setUp(self) -> None:
-        self.api = AuthenticationApi()
-
-    def tearDown(self) -> None:
+    def setUp(self):
         pass
 
-    def test_info(self) -> None:
-        """Test case for info
-
-        Authenticated User Information
-        """
+    def tearDown(self):
         pass
 
+    def testAccessPermissions(self):
+        """Test AccessPermissions"""
+        # inst = AccessPermissions()
 
 if __name__ == '__main__':
     unittest.main()

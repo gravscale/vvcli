@@ -14,10 +14,10 @@
 
 import unittest
 
-from vvcli_sdk.models.page_account_schema import PageAccountSchema
+from vvcli_sdk.models.page_get_sub_user_obj_storage_schema import PageGetSubUserObjStorageSchema
 
-class TestPageAccountSchema(unittest.TestCase):
-    """PageAccountSchema unit test stubs"""
+class TestPageGetSubUserObjStorageSchema(unittest.TestCase):
+    """PageGetSubUserObjStorageSchema unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,22 +25,21 @@ class TestPageAccountSchema(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> PageAccountSchema:
-        """Test PageAccountSchema
+    def make_instance(self, include_optional) -> PageGetSubUserObjStorageSchema:
+        """Test PageGetSubUserObjStorageSchema
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `PageAccountSchema`
+        # uncomment below to create an instance of `PageGetSubUserObjStorageSchema`
         """
-        model = PageAccountSchema()
+        model = PageGetSubUserObjStorageSchema()
         if include_optional:
-            return PageAccountSchema(
+            return PageGetSubUserObjStorageSchema(
                 items = [
-                    vvcli_sdk.models.account_schema.AccountSchema(
-                        uuid = '', 
-                        client_id = 56, 
-                        client_name = '', 
-                        client_status = '', )
+                    vvcli_sdk.models.get_sub_user_obj_storage_schema.GetSubUserObjStorageSchema(
+                        user_srn = '', 
+                        display_name = '', 
+                        client_id = '', )
                     ],
                 total = 0.0,
                 page = 1.0,
@@ -48,13 +47,12 @@ class TestPageAccountSchema(unittest.TestCase):
                 pages = 0.0
             )
         else:
-            return PageAccountSchema(
+            return PageGetSubUserObjStorageSchema(
                 items = [
-                    vvcli_sdk.models.account_schema.AccountSchema(
-                        uuid = '', 
-                        client_id = 56, 
-                        client_name = '', 
-                        client_status = '', )
+                    vvcli_sdk.models.get_sub_user_obj_storage_schema.GetSubUserObjStorageSchema(
+                        user_srn = '', 
+                        display_name = '', 
+                        client_id = '', )
                     ],
                 total = 0.0,
                 page = 1.0,
@@ -62,8 +60,8 @@ class TestPageAccountSchema(unittest.TestCase):
         )
         """
 
-    def testPageAccountSchema(self):
-        """Test PageAccountSchema"""
+    def testPageGetSubUserObjStorageSchema(self):
+        """Test PageGetSubUserObjStorageSchema"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

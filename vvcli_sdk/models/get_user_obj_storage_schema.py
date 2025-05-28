@@ -28,11 +28,8 @@ class GetUserObjStorageSchema(BaseModel):
     """ # noqa: E501
     user_srn: StrictStr = Field(alias="userSrn")
     display_name: StrictStr = Field(alias="displayName")
-    email: StrictStr
     client_id: StrictStr = Field(alias="clientId")
-    access_key: StrictStr = Field(alias="accessKey")
-    secret_key: StrictStr = Field(alias="secretKey")
-    __properties: ClassVar[List[str]] = ["userSrn", "displayName", "email", "clientId", "accessKey", "secretKey"]
+    __properties: ClassVar[List[str]] = ["userSrn", "displayName", "clientId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,10 +84,7 @@ class GetUserObjStorageSchema(BaseModel):
         _obj = cls.model_validate({
             "userSrn": obj.get("userSrn"),
             "displayName": obj.get("displayName"),
-            "email": obj.get("email"),
-            "clientId": obj.get("clientId"),
-            "accessKey": obj.get("accessKey"),
-            "secretKey": obj.get("secretKey")
+            "clientId": obj.get("clientId")
         })
         return _obj
 

@@ -26,17 +26,31 @@ class TestObjectStorageApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_create_user(self) -> None:
-        """Test case for create_user
+    def test_create_client_user(self) -> None:
+        """Test case for create_client_user
 
-        Create Object Storage User
+        Create Client User Object Storage
         """
         pass
 
-    def test_get_user(self) -> None:
-        """Test case for get_user
+    def test_create_subuser(self) -> None:
+        """Test case for create_subuser
 
-        Get Object Storage
+        Create Subuser Object Storage
+        """
+        pass
+
+    def test_get_client_user(self) -> None:
+        """Test case for get_client_user
+
+        Get Client User Object Storage
+        """
+        pass
+
+    def test_get_subusers(self) -> None:
+        """Test case for get_subusers
+
+        Get Subusers Object Storage
         """
         pass
 

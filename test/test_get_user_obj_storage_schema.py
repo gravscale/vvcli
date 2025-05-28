@@ -37,19 +37,13 @@ class TestGetUserObjStorageSchema(unittest.TestCase):
             return GetUserObjStorageSchema(
                 user_srn = '',
                 display_name = '',
-                email = '',
-                client_id = '',
-                access_key = '',
-                secret_key = ''
+                client_id = ''
             )
         else:
             return GetUserObjStorageSchema(
                 user_srn = '',
                 display_name = '',
-                email = '',
                 client_id = '',
-                access_key = '',
-                secret_key = '',
         )
         """
 

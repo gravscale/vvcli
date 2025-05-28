@@ -17,19 +17,23 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from vvcli_sdk.models.get_sub_user_obj_storage_schema import GetSubUserObjStorageSchema
 from typing import Optional, Set
 from typing_extensions import Self
 
-class AuthInfoSchema(BaseModel):
+class PageGetSubUserObjStorageSchema(BaseModel):
     """
-    AuthInfoSchema
+    PageGetSubUserObjStorageSchema
     """ # noqa: E501
-    srn: StrictStr
-    email: StrictStr
-    nickname: StrictStr
-    __properties: ClassVar[List[str]] = ["srn", "email", "nickname"]
+    items: List[GetSubUserObjStorageSchema]
+    total: Optional[Annotated[int, Field(strict=True, ge=0)]]
+    page: Optional[Annotated[int, Field(strict=True, ge=1)]]
+    size: Optional[Annotated[int, Field(strict=True, ge=1)]]
+    pages: Optional[Annotated[int, Field(strict=True, ge=0)]] = None
+    __properties: ClassVar[List[str]] = ["items", "total", "page", "size", "pages"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -49,7 +53,7 @@ class AuthInfoSchema(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AuthInfoSchema from a JSON string"""
+        """Create an instance of PageGetSubUserObjStorageSchema from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -70,11 +74,38 @@ class AuthInfoSchema(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in items (list)
+        _items = []
+        if self.items:
+            for _item_items in self.items:
+                if _item_items:
+                    _items.append(_item_items.to_dict())
+            _dict['items'] = _items
+        # set to None if total (nullable) is None
+        # and model_fields_set contains the field
+        if self.total is None and "total" in self.model_fields_set:
+            _dict['total'] = None
+
+        # set to None if page (nullable) is None
+        # and model_fields_set contains the field
+        if self.page is None and "page" in self.model_fields_set:
+            _dict['page'] = None
+
+        # set to None if size (nullable) is None
+        # and model_fields_set contains the field
+        if self.size is None and "size" in self.model_fields_set:
+            _dict['size'] = None
+
+        # set to None if pages (nullable) is None
+        # and model_fields_set contains the field
+        if self.pages is None and "pages" in self.model_fields_set:
+            _dict['pages'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AuthInfoSchema from a dict"""
+        """Create an instance of PageGetSubUserObjStorageSchema from a dict"""
         if obj is None:
             return None
 
@@ -82,9 +113,11 @@ class AuthInfoSchema(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "srn": obj.get("srn"),
-            "email": obj.get("email"),
-            "nickname": obj.get("nickname")
+            "items": [GetSubUserObjStorageSchema.from_dict(_item) for _item in obj["items"]] if obj.get("items") is not None else None,
+            "total": obj.get("total"),
+            "page": obj.get("page"),
+            "size": obj.get("size"),
+            "pages": obj.get("pages")
         })
         return _obj
 

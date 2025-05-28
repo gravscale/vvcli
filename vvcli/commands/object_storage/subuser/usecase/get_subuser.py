@@ -7,9 +7,10 @@ from ....abstract import AbstractReadInputValue, AbstractPrintableJSON, Abstract
 from ...enum import EnumObjectStoragePrintableAttributes
 
 
-class CreateObjectStorageUserCommand(AbstractPrintableTable, AbstractReadInputValue, AbstractPrintableJSON):
+class GetSubUserObjectStorageCommand(AbstractPrintableTable, AbstractReadInputValue, AbstractPrintableJSON):
     _printable_attributes = EnumObjectStoragePrintableAttributes
-    _table_headers = ["Nome", "Srn", "ClientId", "Access Key", "Secret Key"]
+    _table_headers = ["DisplayName", "UserSrn", "ClientId"]
+
 
     def __init__(self, client_id: str, configuration: vvcli_sdk.Configuration):
         self._configuration = configuration
@@ -18,12 +19,10 @@ class CreateObjectStorageUserCommand(AbstractPrintableTable, AbstractReadInputVa
     async def _gen_table_rows(self, obj_users: List[dict]):
         obj_users_info = []
         for obj_u in obj_users:
-            key = obj_u["keys"].pop()
-            obj_users_info.append((obj_u["displayName"], obj_u["userSrn"], obj_u["clientId"], key["accessKey"], key["secretKey"]))
+            obj_users_info.append((obj_u["displayName"], obj_u["userSrn"], obj_u["clientId"]))
         return obj_users_info
 
     async def _validate(self):
-
         self._client_id = await self._read_prompt_input(
             self._printable_attributes.CLIENT_ID.value, self._client_id, type=str
         )
@@ -34,16 +33,16 @@ class CreateObjectStorageUserCommand(AbstractPrintableTable, AbstractReadInputVa
         try:
             with vvcli_sdk.ApiClient(self._configuration) as api_client:
                 api_instance = vvcli_sdk.ObjectStorageApi(api_client)
-                obj_user = api_instance.create_client_user(self._client_id)
+                obj_subusers = api_instance.get_subusers(self._client_id)
         except vvcli_sdk.exceptions.ApiException as exc:
             click.echo(f"Error: [{exc.status}] [{exc.reason}] {exc.body}")
             return
 
         if return_json:
-            await self._echo_json(obj_user.to_dict())
+            await self._echo_json(obj_subusers.to_dict().get("items"))
             return
 
-        obj_user_info = await self._gen_table_rows([obj_user.to_dict()])
+        obj_user_info = await self._gen_table_rows(obj_subusers.to_dict().get("items"))
         column_widths = await self._calculate_columns_width(
             self._table_headers, obj_user_info
         )

@@ -17,19 +17,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from vvcli_sdk.models.credential_key import CredentialKey
 from typing import Optional, Set
 from typing_extensions import Self
 
-class AuthInfoSchema(BaseModel):
+class NewUserObjStorageSchema(BaseModel):
     """
-    AuthInfoSchema
+    NewUserObjStorageSchema
     """ # noqa: E501
-    srn: StrictStr
-    email: StrictStr
-    nickname: StrictStr
-    __properties: ClassVar[List[str]] = ["srn", "email", "nickname"]
+    user_srn: StrictStr = Field(alias="userSrn")
+    display_name: StrictStr = Field(alias="displayName")
+    client_id: StrictStr = Field(alias="clientId")
+    keys: Optional[List[CredentialKey]] = None
+    __properties: ClassVar[List[str]] = ["userSrn", "displayName", "clientId", "keys"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -49,7 +51,7 @@ class AuthInfoSchema(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AuthInfoSchema from a JSON string"""
+        """Create an instance of NewUserObjStorageSchema from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -70,11 +72,23 @@ class AuthInfoSchema(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in keys (list)
+        _items = []
+        if self.keys:
+            for _item_keys in self.keys:
+                if _item_keys:
+                    _items.append(_item_keys.to_dict())
+            _dict['keys'] = _items
+        # set to None if keys (nullable) is None
+        # and model_fields_set contains the field
+        if self.keys is None and "keys" in self.model_fields_set:
+            _dict['keys'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AuthInfoSchema from a dict"""
+        """Create an instance of NewUserObjStorageSchema from a dict"""
         if obj is None:
             return None
 
@@ -82,9 +96,10 @@ class AuthInfoSchema(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "srn": obj.get("srn"),
-            "email": obj.get("email"),
-            "nickname": obj.get("nickname")
+            "userSrn": obj.get("userSrn"),
+            "displayName": obj.get("displayName"),
+            "clientId": obj.get("clientId"),
+            "keys": [CredentialKey.from_dict(_item) for _item in obj["keys"]] if obj.get("keys") is not None else None
         })
         return _obj
 

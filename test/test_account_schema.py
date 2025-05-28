@@ -37,12 +37,14 @@ class TestAccountSchema(unittest.TestCase):
             return AccountSchema(
                 uuid = '',
                 client_id = 56,
+                client_name = '',
                 client_status = ''
             )
         else:
             return AccountSchema(
                 uuid = '',
                 client_id = 56,
+                client_name = '',
                 client_status = '',
         )
         """

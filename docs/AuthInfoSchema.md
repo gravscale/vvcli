@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**srn** | **str** |  | 
 **email** | **str** |  | 
 **nickname** | **str** |  | 
 
