@@ -13,7 +13,9 @@ class ListAccountsCommand(AbstractPrintableTable, AbstractPrintableJSON):
     async def _gen_table_rows(self, accounts: List[dict]):
         accounts_info = []
         for acc in accounts:
-            accounts_info.append((acc["uuid"], acc["clientName"], acc["clientId"], acc["clientStatus"]))
+            accounts_info.append(
+                (acc["uuid"], acc["clientName"], acc["clientId"], acc["clientStatus"])
+            )
         return accounts_info
 
     async def execute(self, return_json=False):

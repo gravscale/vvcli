@@ -22,10 +22,12 @@ from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class CredentialKey(BaseModel):
     """
     CredentialKey
-    """ # noqa: E501
+    """  # noqa: E501
+
     access_key: StrictStr = Field(alias="accessKey")
     secret_key: StrictStr = Field(alias="secretKey")
     __properties: ClassVar[List[str]] = ["accessKey", "secretKey"]
@@ -35,7 +37,6 @@ class CredentialKey(BaseModel):
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -61,8 +62,7 @@ class CredentialKey(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -80,10 +80,7 @@ class CredentialKey(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "accessKey": obj.get("accessKey"),
-            "secretKey": obj.get("secretKey")
-        })
+        _obj = cls.model_validate(
+            {"accessKey": obj.get("accessKey"), "secretKey": obj.get("secretKey")}
+        )
         return _obj
-
-

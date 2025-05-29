@@ -1,17 +1,14 @@
 import click
 
-import vvcli_sdk
+from ..enum import EnumAuthenticationPrintableAttributes
 from ...abstract import AbstractReadInputValue
 from ....config import CliConfiguration
-from ..enum import EnumAuthenticationPrintableAttributes
 
 
 class ConfigureAuthenticateCommand(AbstractReadInputValue):
     _printable_attributes = EnumAuthenticationPrintableAttributes
 
-    def __init__(
-        self, token: str, config_file: str, cli_config: CliConfiguration
-    ):
+    def __init__(self, token: str, config_file: str, cli_config: CliConfiguration):
         self._token = token
         self._config_file = config_file
         self._cli_config = cli_config
@@ -25,7 +22,6 @@ class ConfigureAuthenticateCommand(AbstractReadInputValue):
         self._token = await self._read_prompt_input(
             self._printable_attributes.API_TOKEN.value, self._token, type=str
         )
-
 
     async def execute(self):
         await self._validate()

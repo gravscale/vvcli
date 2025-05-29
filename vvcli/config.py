@@ -31,15 +31,19 @@ class CliConfiguration:
     def save_authorization(self, token: str):
         self._ensure_config_directory()
         with open(os.path.join(self._config_path, ".auth.json"), "w") as file:
-            json.dump({
-                "access_token": f"{token}",
-            }, file, default=str)
+            json.dump(
+                {
+                    "access_token": f"{token}",
+                },
+                file,
+                default=str,
+            )
 
     def load_sdk_configuration(self) -> vvcli_sdk.Configuration:
         config = {"host": self.host}
         auth = self._load_authorization()
         if "access_token" in auth.keys():
-            config["access_token"] = auth.get('access_token')
+            config["access_token"] = auth.get("access_token")
         return vvcli_sdk.Configuration(**config)
 
     @classmethod

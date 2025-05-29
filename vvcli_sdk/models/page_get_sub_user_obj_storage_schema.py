@@ -24,10 +24,12 @@ from vvcli_sdk.models.get_sub_user_obj_storage_schema import GetSubUserObjStorag
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class PageGetSubUserObjStorageSchema(BaseModel):
     """
     PageGetSubUserObjStorageSchema
-    """ # noqa: E501
+    """  # noqa: E501
+
     items: List[GetSubUserObjStorageSchema]
     total: Optional[Annotated[int, Field(strict=True, ge=0)]]
     page: Optional[Annotated[int, Field(strict=True, ge=1)]]
@@ -40,7 +42,6 @@ class PageGetSubUserObjStorageSchema(BaseModel):
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -66,8 +67,7 @@ class PageGetSubUserObjStorageSchema(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -80,26 +80,26 @@ class PageGetSubUserObjStorageSchema(BaseModel):
             for _item_items in self.items:
                 if _item_items:
                     _items.append(_item_items.to_dict())
-            _dict['items'] = _items
+            _dict["items"] = _items
         # set to None if total (nullable) is None
         # and model_fields_set contains the field
         if self.total is None and "total" in self.model_fields_set:
-            _dict['total'] = None
+            _dict["total"] = None
 
         # set to None if page (nullable) is None
         # and model_fields_set contains the field
         if self.page is None and "page" in self.model_fields_set:
-            _dict['page'] = None
+            _dict["page"] = None
 
         # set to None if size (nullable) is None
         # and model_fields_set contains the field
         if self.size is None and "size" in self.model_fields_set:
-            _dict['size'] = None
+            _dict["size"] = None
 
         # set to None if pages (nullable) is None
         # and model_fields_set contains the field
         if self.pages is None and "pages" in self.model_fields_set:
-            _dict['pages'] = None
+            _dict["pages"] = None
 
         return _dict
 
@@ -112,13 +112,20 @@ class PageGetSubUserObjStorageSchema(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "items": [GetSubUserObjStorageSchema.from_dict(_item) for _item in obj["items"]] if obj.get("items") is not None else None,
-            "total": obj.get("total"),
-            "page": obj.get("page"),
-            "size": obj.get("size"),
-            "pages": obj.get("pages")
-        })
+        _obj = cls.model_validate(
+            {
+                "items": (
+                    [
+                        GetSubUserObjStorageSchema.from_dict(_item)
+                        for _item in obj["items"]
+                    ]
+                    if obj.get("items") is not None
+                    else None
+                ),
+                "total": obj.get("total"),
+                "page": obj.get("page"),
+                "size": obj.get("size"),
+                "pages": obj.get("pages"),
+            }
+        )
         return _obj
-
-

@@ -16,6 +16,7 @@ import unittest
 
 from vvcli_sdk.models.access_permissions import AccessPermissions
 
+
 class TestAccessPermissions(unittest.TestCase):
     """AccessPermissions unit test stubs"""
 
@@ -29,5 +30,6 @@ class TestAccessPermissions(unittest.TestCase):
         """Test AccessPermissions"""
         # inst = AccessPermissions()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

@@ -8,9 +8,13 @@ class AuthenticateInfoCommand:
         self._configuration = configuration
 
     async def execute(self):
-        with vvcli_sdk.ApiClient(self._configuration) as api_client:
-            api_instance = vvcli_sdk.AuthenticationApi(api_client)
-            authenticated_user_info = api_instance.info()
+        try:
+            with vvcli_sdk.ApiClient(self._configuration) as api_client:
+                api_instance = vvcli_sdk.AuthenticationApi(api_client)
+                authenticated_user_info = api_instance.info()
+        except vvcli_sdk.exceptions.ApiException as exc:
+            click.echo(f"Error: [{exc.status}] [{exc.reason}] {exc.body}")
+            return
         click.echo(
-            f"Authenticated user: {authenticated_user_info.email} {authenticated_user_info.nickname}"
+            f"Authenticated user: {authenticated_user_info.email}"
         )

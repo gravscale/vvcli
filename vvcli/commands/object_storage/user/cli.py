@@ -4,6 +4,7 @@ from .usecase import GetUserObjectStorageCommand
 from .... import CliConfiguration
 from .usecase.create_user import CreateObjectStorageUserCommand
 
+
 @click.group(name="user")
 async def obj_user_group():
     """User Object Storage"""
@@ -23,8 +24,9 @@ async def obj_user_group():
 @click.pass_obj
 async def add_user(obj, client_id: str, json: bool):
     cli_config: CliConfiguration = obj["config"]
-    await CreateObjectStorageUserCommand(client_id, cli_config.load_sdk_configuration()).execute(json)
-
+    await CreateObjectStorageUserCommand(
+        client_id, cli_config.load_sdk_configuration()
+    ).execute(json)
 
 
 @obj_user_group.command("get", help="Get client user for object storage")
@@ -40,6 +42,6 @@ async def add_user(obj, client_id: str, json: bool):
 @click.pass_obj
 async def get_user(obj, client_id: str, json: bool):
     cli_config: CliConfiguration = obj["config"]
-    await GetUserObjectStorageCommand(client_id, cli_config.load_sdk_configuration()).execute(json)
-
-
+    await GetUserObjectStorageCommand(
+        client_id, cli_config.load_sdk_configuration()
+    ).execute(json)

@@ -1,12 +1,9 @@
 import json
 from abc import ABCMeta, abstractmethod
-from time import sleep
 from typing import List, Callable, Any, Tuple
 
 import click
-from tqdm import tqdm
 
-import vvcli_sdk
 from .exceptions import ReadInputValueException, PrintableTableException
 from .utils import get_columns_size, get_max_size_columns
 
@@ -74,7 +71,7 @@ class AbstractReadInputValue(metaclass=ABCMeta):
         cls,
         text: str,
         variable,
-        validators: List[Tuple[Callable[[Any], bool], str]] = None,
+        validators: List[Tuple[Callable, str]] = None,
         **kwargs,
     ):
         error = None
@@ -93,5 +90,3 @@ class AbstractReadInputValue(metaclass=ABCMeta):
             )
         except click.exceptions.Abort:
             raise ReadInputValueException("Input aborted")
-
-

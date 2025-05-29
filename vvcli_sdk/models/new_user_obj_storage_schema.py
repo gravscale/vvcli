@@ -23,10 +23,12 @@ from vvcli_sdk.models.credential_key import CredentialKey
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class NewUserObjStorageSchema(BaseModel):
     """
     NewUserObjStorageSchema
-    """ # noqa: E501
+    """  # noqa: E501
+
     user_srn: StrictStr = Field(alias="userSrn")
     display_name: StrictStr = Field(alias="displayName")
     client_id: StrictStr = Field(alias="clientId")
@@ -38,7 +40,6 @@ class NewUserObjStorageSchema(BaseModel):
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -64,8 +65,7 @@ class NewUserObjStorageSchema(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -78,11 +78,11 @@ class NewUserObjStorageSchema(BaseModel):
             for _item_keys in self.keys:
                 if _item_keys:
                     _items.append(_item_keys.to_dict())
-            _dict['keys'] = _items
+            _dict["keys"] = _items
         # set to None if keys (nullable) is None
         # and model_fields_set contains the field
         if self.keys is None and "keys" in self.model_fields_set:
-            _dict['keys'] = None
+            _dict["keys"] = None
 
         return _dict
 
@@ -95,12 +95,16 @@ class NewUserObjStorageSchema(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "userSrn": obj.get("userSrn"),
-            "displayName": obj.get("displayName"),
-            "clientId": obj.get("clientId"),
-            "keys": [CredentialKey.from_dict(_item) for _item in obj["keys"]] if obj.get("keys") is not None else None
-        })
+        _obj = cls.model_validate(
+            {
+                "userSrn": obj.get("userSrn"),
+                "displayName": obj.get("displayName"),
+                "clientId": obj.get("clientId"),
+                "keys": (
+                    [CredentialKey.from_dict(_item) for _item in obj["keys"]]
+                    if obj.get("keys") is not None
+                    else None
+                ),
+            }
+        )
         return _obj
-
-

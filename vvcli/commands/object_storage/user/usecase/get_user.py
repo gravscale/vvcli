@@ -3,14 +3,19 @@ from typing import List
 import click
 
 import vvcli_sdk
-from ....abstract import AbstractReadInputValue, AbstractPrintableJSON, AbstractPrintableTable
+from ....abstract import (
+    AbstractReadInputValue,
+    AbstractPrintableJSON,
+    AbstractPrintableTable,
+)
 from ...enum import EnumObjectStoragePrintableAttributes
 
 
-class GetUserObjectStorageCommand(AbstractPrintableTable, AbstractReadInputValue, AbstractPrintableJSON):
+class GetUserObjectStorageCommand(
+    AbstractPrintableTable, AbstractReadInputValue, AbstractPrintableJSON
+):
     _printable_attributes = EnumObjectStoragePrintableAttributes
-    _table_headers = ["Nome", "Srn", "ClientId"]
-
+    _table_headers = ["Client Id", "Name"]
 
     def __init__(self, client_id: str, configuration: vvcli_sdk.Configuration):
         self._configuration = configuration
@@ -19,7 +24,9 @@ class GetUserObjectStorageCommand(AbstractPrintableTable, AbstractReadInputValue
     async def _gen_table_rows(self, obj_users: List[dict]):
         obj_users_info = []
         for obj_u in obj_users:
-            obj_users_info.append((obj_u["displayName"], obj_u["userSrn"], obj_u["clientId"]))
+            obj_users_info.append(
+                (obj_u["clientId"], obj_u["displayName"])
+            )
         return obj_users_info
 
     async def _validate(self):
