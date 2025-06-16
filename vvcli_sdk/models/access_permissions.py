@@ -26,11 +26,14 @@ class AccessPermissions(str, Enum):
     """
     allowed enum values
     """
-    READ = "read"
-    WRITE = "write"
-    READWRITE = "readwrite"
+    READ = 'read'
+    WRITE = 'write'
+    READWRITE = 'readwrite'
+    FULL = 'full'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
         """Create an instance of AccessPermissions from a JSON string"""
         return cls(json.loads(json_str))
+
+

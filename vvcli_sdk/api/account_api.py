@@ -16,11 +16,12 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import Optional
 from typing_extensions import Annotated
 from vvcli_sdk.models.account_schema import AccountSchema
 from vvcli_sdk.models.page_account_schema import PageAccountSchema
+from vvcli_sdk.models.page_contract_schema import PageContractSchema
 
 from vvcli_sdk.api_client import ApiClient, RequestSerialized
 from vvcli_sdk.api_response import ApiResponse
@@ -39,17 +40,19 @@ class AccountApi:
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
+
     @validate_call
     def get_account(
         self,
         uuid: Optional[StrictStr] = None,
-        client_id: Optional[StrictInt] = None,
+        client_id: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -62,7 +65,7 @@ class AccountApi:
         :param uuid:
         :type uuid: str
         :param client_id:
-        :type client_id: int
+        :type client_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -83,7 +86,7 @@ class AccountApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._get_account_serialize(
             uuid=uuid,
@@ -91,15 +94,16 @@ class AccountApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "AccountSchema",
-            "422": "HTTPValidationError",
+            '200': "AccountSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -107,17 +111,19 @@ class AccountApi:
             response_types_map=_response_types_map,
         ).data
 
+
     @validate_call
     def get_account_with_http_info(
         self,
         uuid: Optional[StrictStr] = None,
-        client_id: Optional[StrictInt] = None,
+        client_id: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -130,7 +136,7 @@ class AccountApi:
         :param uuid:
         :type uuid: str
         :param client_id:
-        :type client_id: int
+        :type client_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -151,7 +157,7 @@ class AccountApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._get_account_serialize(
             uuid=uuid,
@@ -159,15 +165,16 @@ class AccountApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "AccountSchema",
-            "422": "HTTPValidationError",
+            '200': "AccountSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -175,17 +182,19 @@ class AccountApi:
             response_types_map=_response_types_map,
         )
 
+
     @validate_call
     def get_account_without_preload_content(
         self,
         uuid: Optional[StrictStr] = None,
-        client_id: Optional[StrictInt] = None,
+        client_id: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -198,7 +207,7 @@ class AccountApi:
         :param uuid:
         :type uuid: str
         :param client_id:
-        :type client_id: int
+        :type client_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -219,7 +228,7 @@ class AccountApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._get_account_serialize(
             uuid=uuid,
@@ -227,17 +236,19 @@ class AccountApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "AccountSchema",
-            "422": "HTTPValidationError",
+            '200': "AccountSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         return response_data.response
+
 
     def _get_account_serialize(
         self,
@@ -251,7 +262,8 @@ class AccountApi:
 
         _host = None
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
@@ -265,29 +277,35 @@ class AccountApi:
         # process the path parameters
         # process the query parameters
         if uuid is not None:
-
-            _query_params.append(("uuid", uuid))
-
+            
+            _query_params.append(('uuid', uuid))
+            
         if client_id is not None:
-
-            _query_params.append(("client_id", client_id))
-
+            
+            _query_params.append(('client_id', client_id))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
-                ["application/json"]
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
             )
 
+
         # authentication setting
-        _auth_settings: List[str] = ["HTTPBearer"]
+        _auth_settings: List[str] = [
+            'HTTPBearer'
+        ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/account/",
+            method='GET',
+            resource_path='/account/',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -297,26 +315,24 @@ class AccountApi:
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
             _host=_host,
-            _request_auth=_request_auth,
+            _request_auth=_request_auth
         )
+
+
+
 
     @validate_call
     def list_accounts(
         self,
-        page: Annotated[
-            Optional[Annotated[int, Field(strict=True, ge=1)]],
-            Field(description="Page number"),
-        ] = None,
-        size: Annotated[
-            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
-            Field(description="Page size"),
-        ] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number")] = None,
+        size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Page size")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -350,7 +366,7 @@ class AccountApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._list_accounts_serialize(
             page=page,
@@ -358,15 +374,16 @@ class AccountApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "PageAccountSchema",
-            "422": "HTTPValidationError",
+            '200': "PageAccountSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -374,23 +391,19 @@ class AccountApi:
             response_types_map=_response_types_map,
         ).data
 
+
     @validate_call
     def list_accounts_with_http_info(
         self,
-        page: Annotated[
-            Optional[Annotated[int, Field(strict=True, ge=1)]],
-            Field(description="Page number"),
-        ] = None,
-        size: Annotated[
-            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
-            Field(description="Page size"),
-        ] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number")] = None,
+        size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Page size")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -424,7 +437,7 @@ class AccountApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._list_accounts_serialize(
             page=page,
@@ -432,15 +445,16 @@ class AccountApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "PageAccountSchema",
-            "422": "HTTPValidationError",
+            '200': "PageAccountSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -448,23 +462,19 @@ class AccountApi:
             response_types_map=_response_types_map,
         )
 
+
     @validate_call
     def list_accounts_without_preload_content(
         self,
-        page: Annotated[
-            Optional[Annotated[int, Field(strict=True, ge=1)]],
-            Field(description="Page number"),
-        ] = None,
-        size: Annotated[
-            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
-            Field(description="Page size"),
-        ] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number")] = None,
+        size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Page size")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -498,7 +508,7 @@ class AccountApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._list_accounts_serialize(
             page=page,
@@ -506,17 +516,19 @@ class AccountApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "PageAccountSchema",
-            "422": "HTTPValidationError",
+            '200': "PageAccountSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         return response_data.response
+
 
     def _list_accounts_serialize(
         self,
@@ -530,7 +542,8 @@ class AccountApi:
 
         _host = None
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
@@ -544,29 +557,35 @@ class AccountApi:
         # process the path parameters
         # process the query parameters
         if page is not None:
-
-            _query_params.append(("page", page))
-
+            
+            _query_params.append(('page', page))
+            
         if size is not None:
-
-            _query_params.append(("size", size))
-
+            
+            _query_params.append(('size', size))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
-                ["application/json"]
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
             )
 
+
         # authentication setting
-        _auth_settings: List[str] = ["HTTPBearer"]
+        _auth_settings: List[str] = [
+            'HTTPBearer'
+        ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/account/all",
+            method='GET',
+            resource_path='/account/all',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -576,5 +595,355 @@ class AccountApi:
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
             _host=_host,
-            _request_auth=_request_auth,
+            _request_auth=_request_auth
         )
+
+
+
+
+    @validate_call
+    def list_contracts(
+        self,
+        uuid: Optional[StrictStr] = None,
+        client_id: Optional[StrictStr] = None,
+        product: Optional[StrictStr] = None,
+        contract_key: Optional[StrictStr] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number")] = None,
+        size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Page size")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> PageContractSchema:
+        """List Contracts
+
+
+        :param uuid:
+        :type uuid: str
+        :param client_id:
+        :type client_id: str
+        :param product:
+        :type product: str
+        :param contract_key:
+        :type contract_key: str
+        :param page: Page number
+        :type page: int
+        :param size: Page size
+        :type size: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_contracts_serialize(
+            uuid=uuid,
+            client_id=client_id,
+            product=product,
+            contract_key=contract_key,
+            page=page,
+            size=size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PageContractSchema",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def list_contracts_with_http_info(
+        self,
+        uuid: Optional[StrictStr] = None,
+        client_id: Optional[StrictStr] = None,
+        product: Optional[StrictStr] = None,
+        contract_key: Optional[StrictStr] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number")] = None,
+        size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Page size")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[PageContractSchema]:
+        """List Contracts
+
+
+        :param uuid:
+        :type uuid: str
+        :param client_id:
+        :type client_id: str
+        :param product:
+        :type product: str
+        :param contract_key:
+        :type contract_key: str
+        :param page: Page number
+        :type page: int
+        :param size: Page size
+        :type size: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_contracts_serialize(
+            uuid=uuid,
+            client_id=client_id,
+            product=product,
+            contract_key=contract_key,
+            page=page,
+            size=size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PageContractSchema",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def list_contracts_without_preload_content(
+        self,
+        uuid: Optional[StrictStr] = None,
+        client_id: Optional[StrictStr] = None,
+        product: Optional[StrictStr] = None,
+        contract_key: Optional[StrictStr] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number")] = None,
+        size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Page size")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List Contracts
+
+
+        :param uuid:
+        :type uuid: str
+        :param client_id:
+        :type client_id: str
+        :param product:
+        :type product: str
+        :param contract_key:
+        :type contract_key: str
+        :param page: Page number
+        :type page: int
+        :param size: Page size
+        :type size: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_contracts_serialize(
+            uuid=uuid,
+            client_id=client_id,
+            product=product,
+            contract_key=contract_key,
+            page=page,
+            size=size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PageContractSchema",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _list_contracts_serialize(
+        self,
+        uuid,
+        client_id,
+        product,
+        contract_key,
+        page,
+        size,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if uuid is not None:
+            
+            _query_params.append(('uuid', uuid))
+            
+        if client_id is not None:
+            
+            _query_params.append(('client_id', client_id))
+            
+        if product is not None:
+            
+            _query_params.append(('product', product))
+            
+        if contract_key is not None:
+            
+            _query_params.append(('contract_key', contract_key))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
+        if size is not None:
+            
+            _query_params.append(('size', size))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'HTTPBearer'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/account/contracts',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+

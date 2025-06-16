@@ -31,13 +31,19 @@ class AbstractPrintableTable(metaclass=ABCMeta):
     async def _generate_line(cls, *args):
         header = "|"
         for i in range(len(args)):
-            header += " {:^{}} |".format(*args[i])
+            value, size = args[i]
+            if not value:
+                value = ""
+            header += " {:^{}} |".format(value, size)
         return header
 
     @classmethod
     async def _echo_table(cls, width: List[dict], headers: [str], data: [tuple]):
         header = await cls._generate_line(
-            *[(headers[i], width[i][i]) for i in range(len(headers))]
+            *[
+                (headers[i], width[i][i] if len(width) > 0 else len(headers[i]))
+                for i in range(len(headers))
+            ]
         )
 
         click.echo("-" * len(header))

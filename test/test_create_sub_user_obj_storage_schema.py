@@ -14,10 +14,7 @@
 
 import unittest
 
-from vvcli_sdk.models.create_sub_user_obj_storage_schema import (
-    CreateSubUserObjStorageSchema,
-)
-
+from vvcli_sdk.models.create_sub_user_obj_storage_schema import CreateSubUserObjStorageSchema
 
 class TestCreateSubUserObjStorageSchema(unittest.TestCase):
     """CreateSubUserObjStorageSchema unit test stubs"""
@@ -30,9 +27,9 @@ class TestCreateSubUserObjStorageSchema(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CreateSubUserObjStorageSchema:
         """Test CreateSubUserObjStorageSchema
-        include_optional is a boolean, when False only required
-        params are included, when True both required and
-        optional params are included"""
+            include_optional is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
         # uncomment below to create an instance of `CreateSubUserObjStorageSchema`
         """
         model = CreateSubUserObjStorageSchema()
@@ -55,6 +52,5 @@ class TestCreateSubUserObjStorageSchema(unittest.TestCase):
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

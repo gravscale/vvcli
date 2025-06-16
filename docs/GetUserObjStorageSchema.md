@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **user_srn** | **str** |  | 
-**display_name** | **str** |  | 
+**contract_key** | **str** |  | 
 **client_id** | **str** |  | 
 
 ## Example

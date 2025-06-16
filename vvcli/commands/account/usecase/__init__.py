@@ -1,1 +1,2 @@
 from .list_accounts import ListAccountsCommand
+from .list_contracts import ListContractsCommand

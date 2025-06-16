@@ -19,15 +19,11 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictStr
 from typing import Optional
 from typing_extensions import Annotated
-from vvcli_sdk.models.create_sub_user_obj_storage_schema import (
-    CreateSubUserObjStorageSchema,
-)
+from vvcli_sdk.models.create_sub_user_obj_storage_schema import CreateSubUserObjStorageSchema
 from vvcli_sdk.models.get_user_obj_storage_schema import GetUserObjStorageSchema
 from vvcli_sdk.models.new_sub_user_obj_storage_schema import NewSubUserObjStorageSchema
 from vvcli_sdk.models.new_user_obj_storage_schema import NewUserObjStorageSchema
-from vvcli_sdk.models.page_get_sub_user_obj_storage_schema import (
-    PageGetSubUserObjStorageSchema,
-)
+from vvcli_sdk.models.page_get_sub_user_obj_storage_schema import PageGetSubUserObjStorageSchema
 
 from vvcli_sdk.api_client import ApiClient, RequestSerialized
 from vvcli_sdk.api_response import ApiResponse
@@ -46,6 +42,7 @@ class ObjectStorageApi:
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
+
     @validate_call
     def create_client_user(
         self,
@@ -54,8 +51,9 @@ class ObjectStorageApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -87,28 +85,30 @@ class ObjectStorageApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._create_client_user_serialize(
             client_id=client_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "201": "NewUserObjStorageSchema",
-            "422": "HTTPValidationError",
+            '201': "NewUserObjStorageSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
         ).data
+
 
     @validate_call
     def create_client_user_with_http_info(
@@ -118,8 +118,9 @@ class ObjectStorageApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -151,28 +152,30 @@ class ObjectStorageApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._create_client_user_serialize(
             client_id=client_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "201": "NewUserObjStorageSchema",
-            "422": "HTTPValidationError",
+            '201': "NewUserObjStorageSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
         )
+
 
     @validate_call
     def create_client_user_without_preload_content(
@@ -182,8 +185,9 @@ class ObjectStorageApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -215,24 +219,26 @@ class ObjectStorageApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._create_client_user_serialize(
             client_id=client_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "201": "NewUserObjStorageSchema",
-            "422": "HTTPValidationError",
+            '201': "NewUserObjStorageSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         return response_data.response
+
 
     def _create_client_user_serialize(
         self,
@@ -245,7 +251,8 @@ class ObjectStorageApi:
 
         _host = None
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
@@ -259,25 +266,31 @@ class ObjectStorageApi:
         # process the path parameters
         # process the query parameters
         if client_id is not None:
-
-            _query_params.append(("client_id", client_id))
-
+            
+            _query_params.append(('client_id', client_id))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
-                ["application/json"]
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
             )
 
+
         # authentication setting
-        _auth_settings: List[str] = ["HTTPBearer"]
+        _auth_settings: List[str] = [
+            'HTTPBearer'
+        ]
 
         return self.api_client.param_serialize(
-            method="POST",
-            resource_path="/object-storage/user",
+            method='POST',
+            resource_path='/object-storage/user',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -287,8 +300,11 @@ class ObjectStorageApi:
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
             _host=_host,
-            _request_auth=_request_auth,
+            _request_auth=_request_auth
         )
+
+
+
 
     @validate_call
     def create_subuser(
@@ -298,8 +314,9 @@ class ObjectStorageApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -331,28 +348,30 @@ class ObjectStorageApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._create_subuser_serialize(
             create_sub_user_obj_storage_schema=create_sub_user_obj_storage_schema,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "201": "NewSubUserObjStorageSchema",
-            "422": "HTTPValidationError",
+            '201': "NewSubUserObjStorageSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
         ).data
+
 
     @validate_call
     def create_subuser_with_http_info(
@@ -362,8 +381,9 @@ class ObjectStorageApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -395,28 +415,30 @@ class ObjectStorageApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._create_subuser_serialize(
             create_sub_user_obj_storage_schema=create_sub_user_obj_storage_schema,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "201": "NewSubUserObjStorageSchema",
-            "422": "HTTPValidationError",
+            '201': "NewSubUserObjStorageSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
         )
+
 
     @validate_call
     def create_subuser_without_preload_content(
@@ -426,8 +448,9 @@ class ObjectStorageApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -459,24 +482,26 @@ class ObjectStorageApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._create_subuser_serialize(
             create_sub_user_obj_storage_schema=create_sub_user_obj_storage_schema,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "201": "NewSubUserObjStorageSchema",
-            "422": "HTTPValidationError",
+            '201': "NewSubUserObjStorageSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         return response_data.response
+
 
     def _create_subuser_serialize(
         self,
@@ -489,7 +514,8 @@ class ObjectStorageApi:
 
         _host = None
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
@@ -508,28 +534,37 @@ class ObjectStorageApi:
         if create_sub_user_obj_storage_schema is not None:
             _body_params = create_sub_user_obj_storage_schema
 
+
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
-                ["application/json"]
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params["Content-Type"] = _content_type
+            _header_params['Content-Type'] = _content_type
         else:
-            _default_content_type = self.api_client.select_header_content_type(
-                ["application/json"]
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
             )
             if _default_content_type is not None:
-                _header_params["Content-Type"] = _default_content_type
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
-        _auth_settings: List[str] = ["HTTPBearer"]
+        _auth_settings: List[str] = [
+            'HTTPBearer'
+        ]
 
         return self.api_client.param_serialize(
-            method="POST",
-            resource_path="/object-storage/subuser",
+            method='POST',
+            resource_path='/object-storage/subuser',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -539,8 +574,11 @@ class ObjectStorageApi:
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
             _host=_host,
-            _request_auth=_request_auth,
+            _request_auth=_request_auth
         )
+
+
+
 
     @validate_call
     def get_client_user(
@@ -550,8 +588,9 @@ class ObjectStorageApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -583,28 +622,30 @@ class ObjectStorageApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._get_client_user_serialize(
             client_id=client_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "GetUserObjStorageSchema",
-            "422": "HTTPValidationError",
+            '200': "GetUserObjStorageSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
         ).data
+
 
     @validate_call
     def get_client_user_with_http_info(
@@ -614,8 +655,9 @@ class ObjectStorageApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -647,28 +689,30 @@ class ObjectStorageApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._get_client_user_serialize(
             client_id=client_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "GetUserObjStorageSchema",
-            "422": "HTTPValidationError",
+            '200': "GetUserObjStorageSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
         )
+
 
     @validate_call
     def get_client_user_without_preload_content(
@@ -678,8 +722,9 @@ class ObjectStorageApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -711,24 +756,26 @@ class ObjectStorageApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._get_client_user_serialize(
             client_id=client_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "GetUserObjStorageSchema",
-            "422": "HTTPValidationError",
+            '200': "GetUserObjStorageSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         return response_data.response
+
 
     def _get_client_user_serialize(
         self,
@@ -741,7 +788,8 @@ class ObjectStorageApi:
 
         _host = None
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
@@ -755,25 +803,31 @@ class ObjectStorageApi:
         # process the path parameters
         # process the query parameters
         if client_id is not None:
-
-            _query_params.append(("client_id", client_id))
-
+            
+            _query_params.append(('client_id', client_id))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
-                ["application/json"]
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
             )
 
+
         # authentication setting
-        _auth_settings: List[str] = ["HTTPBearer"]
+        _auth_settings: List[str] = [
+            'HTTPBearer'
+        ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/object-storage/user",
+            method='GET',
+            resource_path='/object-storage/user',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -783,27 +837,25 @@ class ObjectStorageApi:
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
             _host=_host,
-            _request_auth=_request_auth,
+            _request_auth=_request_auth
         )
+
+
+
 
     @validate_call
     def get_subusers(
         self,
         client_id: StrictStr,
-        page: Annotated[
-            Optional[Annotated[int, Field(strict=True, ge=1)]],
-            Field(description="Page number"),
-        ] = None,
-        size: Annotated[
-            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
-            Field(description="Page size"),
-        ] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number")] = None,
+        size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Page size")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -839,7 +891,7 @@ class ObjectStorageApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._get_subusers_serialize(
             client_id=client_id,
@@ -848,15 +900,16 @@ class ObjectStorageApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "PageGetSubUserObjStorageSchema",
-            "422": "HTTPValidationError",
+            '200': "PageGetSubUserObjStorageSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -864,24 +917,20 @@ class ObjectStorageApi:
             response_types_map=_response_types_map,
         ).data
 
+
     @validate_call
     def get_subusers_with_http_info(
         self,
         client_id: StrictStr,
-        page: Annotated[
-            Optional[Annotated[int, Field(strict=True, ge=1)]],
-            Field(description="Page number"),
-        ] = None,
-        size: Annotated[
-            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
-            Field(description="Page size"),
-        ] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number")] = None,
+        size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Page size")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -917,7 +966,7 @@ class ObjectStorageApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._get_subusers_serialize(
             client_id=client_id,
@@ -926,15 +975,16 @@ class ObjectStorageApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "PageGetSubUserObjStorageSchema",
-            "422": "HTTPValidationError",
+            '200': "PageGetSubUserObjStorageSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
@@ -942,24 +992,20 @@ class ObjectStorageApi:
             response_types_map=_response_types_map,
         )
 
+
     @validate_call
     def get_subusers_without_preload_content(
         self,
         client_id: StrictStr,
-        page: Annotated[
-            Optional[Annotated[int, Field(strict=True, ge=1)]],
-            Field(description="Page number"),
-        ] = None,
-        size: Annotated[
-            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
-            Field(description="Page size"),
-        ] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number")] = None,
+        size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Page size")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
-            ],
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -995,7 +1041,7 @@ class ObjectStorageApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _param = self._get_subusers_serialize(
             client_id=client_id,
@@ -1004,17 +1050,19 @@ class ObjectStorageApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index,
+            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "PageGetSubUserObjStorageSchema",
-            "422": "HTTPValidationError",
+            '200': "PageGetSubUserObjStorageSchema",
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param, _request_timeout=_request_timeout
+            *_param,
+            _request_timeout=_request_timeout
         )
         return response_data.response
+
 
     def _get_subusers_serialize(
         self,
@@ -1029,7 +1077,8 @@ class ObjectStorageApi:
 
         _host = None
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
@@ -1043,33 +1092,39 @@ class ObjectStorageApi:
         # process the path parameters
         # process the query parameters
         if client_id is not None:
-
-            _query_params.append(("client_id", client_id))
-
+            
+            _query_params.append(('client_id', client_id))
+            
         if page is not None:
-
-            _query_params.append(("page", page))
-
+            
+            _query_params.append(('page', page))
+            
         if size is not None:
-
-            _query_params.append(("size", size))
-
+            
+            _query_params.append(('size', size))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(
-                ["application/json"]
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
             )
 
+
         # authentication setting
-        _auth_settings: List[str] = ["HTTPBearer"]
+        _auth_settings: List[str] = [
+            'HTTPBearer'
+        ]
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/object-storage/subuser",
+            method='GET',
+            resource_path='/object-storage/subuser',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1079,5 +1134,7 @@ class ObjectStorageApi:
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
             _host=_host,
-            _request_auth=_request_auth,
+            _request_auth=_request_auth
         )
+
+

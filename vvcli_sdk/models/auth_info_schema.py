@@ -17,27 +17,27 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
-
 class AuthInfoSchema(BaseModel):
     """
     AuthInfoSchema
-    """  # noqa: E501
-
+    """ # noqa: E501
+    clerk_id: StrictStr = Field(alias="clerkId")
     srn: StrictStr
     email: StrictStr
     nickname: StrictStr
-    __properties: ClassVar[List[str]] = ["srn", "email", "nickname"]
+    __properties: ClassVar[List[str]] = ["clerkId", "srn", "email", "nickname"]
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -63,7 +63,8 @@ class AuthInfoSchema(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([])
+        excluded_fields: Set[str] = set([
+        ])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -81,11 +82,12 @@ class AuthInfoSchema(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate(
-            {
-                "srn": obj.get("srn"),
-                "email": obj.get("email"),
-                "nickname": obj.get("nickname"),
-            }
-        )
+        _obj = cls.model_validate({
+            "clerkId": obj.get("clerkId"),
+            "srn": obj.get("srn"),
+            "email": obj.get("email"),
+            "nickname": obj.get("nickname")
+        })
         return _obj
+
+

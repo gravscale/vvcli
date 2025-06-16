@@ -18,32 +18,26 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
-
 
 class AccountSchema(BaseModel):
     """
     AccountSchema
-    """  # noqa: E501
-
+    """ # noqa: E501
     uuid: StrictStr
     client_id: StrictInt = Field(alias="clientId")
-    client_name: StrictStr = Field(alias="clientName")
-    client_status: StrictStr = Field(alias="clientStatus")
-    __properties: ClassVar[List[str]] = [
-        "uuid",
-        "clientId",
-        "clientName",
-        "clientStatus",
-    ]
+    client_name: Optional[StrictStr] = Field(default=None, alias="clientName")
+    client_status: Optional[StrictStr] = Field(default=None, alias="clientStatus")
+    __properties: ClassVar[List[str]] = ["uuid", "clientId", "clientName", "clientStatus"]
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -69,13 +63,24 @@ class AccountSchema(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([])
+        excluded_fields: Set[str] = set([
+        ])
 
         _dict = self.model_dump(
             by_alias=True,
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if client_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.client_name is None and "client_name" in self.model_fields_set:
+            _dict['clientName'] = None
+
+        # set to None if client_status (nullable) is None
+        # and model_fields_set contains the field
+        if self.client_status is None and "client_status" in self.model_fields_set:
+            _dict['clientStatus'] = None
+
         return _dict
 
     @classmethod
@@ -87,12 +92,12 @@ class AccountSchema(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate(
-            {
-                "uuid": obj.get("uuid"),
-                "clientId": obj.get("clientId"),
-                "clientName": obj.get("clientName"),
-                "clientStatus": obj.get("clientStatus"),
-            }
-        )
+        _obj = cls.model_validate({
+            "uuid": obj.get("uuid"),
+            "clientId": obj.get("clientId"),
+            "clientName": obj.get("clientName"),
+            "clientStatus": obj.get("clientStatus")
+        })
         return _obj
+
+

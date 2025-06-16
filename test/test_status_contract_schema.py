@@ -14,10 +14,10 @@
 
 import unittest
 
-from vvcli_sdk.models.account_schema import AccountSchema
+from vvcli_sdk.models.status_contract_schema import StatusContractSchema
 
-class TestAccountSchema(unittest.TestCase):
-    """AccountSchema unit test stubs"""
+class TestStatusContractSchema(unittest.TestCase):
+    """StatusContractSchema unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,30 +25,32 @@ class TestAccountSchema(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> AccountSchema:
-        """Test AccountSchema
+    def make_instance(self, include_optional) -> StatusContractSchema:
+        """Test StatusContractSchema
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `AccountSchema`
+        # uncomment below to create an instance of `StatusContractSchema`
         """
-        model = AccountSchema()
+        model = StatusContractSchema()
         if include_optional:
-            return AccountSchema(
-                uuid = '',
-                client_id = 56,
-                client_name = '',
-                client_status = ''
+            return StatusContractSchema(
+                label = '',
+                label_client = '',
+                name = '',
+                name_client = ''
             )
         else:
-            return AccountSchema(
-                uuid = '',
-                client_id = 56,
+            return StatusContractSchema(
+                label = '',
+                label_client = '',
+                name = '',
+                name_client = '',
         )
         """
 
-    def testAccountSchema(self):
-        """Test AccountSchema"""
+    def testStatusContractSchema(self):
+        """Test StatusContractSchema"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

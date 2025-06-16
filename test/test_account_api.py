@@ -40,6 +40,13 @@ class TestAccountApi(unittest.TestCase):
         """
         pass
 
+    def test_list_contracts(self) -> None:
+        """Test case for list_contracts
 
-if __name__ == "__main__":
+        List Contracts
+        """
+        pass
+
+
+if __name__ == '__main__':
     unittest.main()

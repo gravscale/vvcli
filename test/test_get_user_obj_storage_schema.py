@@ -16,7 +16,6 @@ import unittest
 
 from vvcli_sdk.models.get_user_obj_storage_schema import GetUserObjStorageSchema
 
-
 class TestGetUserObjStorageSchema(unittest.TestCase):
     """GetUserObjStorageSchema unit test stubs"""
 
@@ -28,22 +27,22 @@ class TestGetUserObjStorageSchema(unittest.TestCase):
 
     def make_instance(self, include_optional) -> GetUserObjStorageSchema:
         """Test GetUserObjStorageSchema
-        include_optional is a boolean, when False only required
-        params are included, when True both required and
-        optional params are included"""
+            include_optional is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
         # uncomment below to create an instance of `GetUserObjStorageSchema`
         """
         model = GetUserObjStorageSchema()
         if include_optional:
             return GetUserObjStorageSchema(
                 user_srn = '',
-                display_name = '',
+                contract_key = '',
                 client_id = ''
             )
         else:
             return GetUserObjStorageSchema(
                 user_srn = '',
-                display_name = '',
+                contract_key = '',
                 client_id = '',
         )
         """
@@ -53,6 +52,5 @@ class TestGetUserObjStorageSchema(unittest.TestCase):
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

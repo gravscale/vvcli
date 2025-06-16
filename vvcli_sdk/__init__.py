@@ -36,9 +36,8 @@ from vvcli_sdk.exceptions import ApiException
 from vvcli_sdk.models.access_permissions import AccessPermissions
 from vvcli_sdk.models.account_schema import AccountSchema
 from vvcli_sdk.models.auth_info_schema import AuthInfoSchema
-from vvcli_sdk.models.create_sub_user_obj_storage_schema import (
-    CreateSubUserObjStorageSchema,
-)
+from vvcli_sdk.models.contract_schema import ContractSchema
+from vvcli_sdk.models.create_sub_user_obj_storage_schema import CreateSubUserObjStorageSchema
 from vvcli_sdk.models.credential_key import CredentialKey
 from vvcli_sdk.models.get_sub_user_obj_storage_schema import GetSubUserObjStorageSchema
 from vvcli_sdk.models.get_user_obj_storage_schema import GetUserObjStorageSchema
@@ -46,8 +45,7 @@ from vvcli_sdk.models.http_validation_error import HTTPValidationError
 from vvcli_sdk.models.new_sub_user_obj_storage_schema import NewSubUserObjStorageSchema
 from vvcli_sdk.models.new_user_obj_storage_schema import NewUserObjStorageSchema
 from vvcli_sdk.models.page_account_schema import PageAccountSchema
-from vvcli_sdk.models.page_get_sub_user_obj_storage_schema import (
-    PageGetSubUserObjStorageSchema,
-)
+from vvcli_sdk.models.page_contract_schema import PageContractSchema
+from vvcli_sdk.models.page_get_sub_user_obj_storage_schema import PageGetSubUserObjStorageSchema
 from vvcli_sdk.models.validation_error import ValidationError
 from vvcli_sdk.models.validation_error_loc_inner import ValidationErrorLocInner

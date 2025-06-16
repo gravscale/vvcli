@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**clerk_id** | **str** |  | 
 **srn** | **str** |  | 
 **email** | **str** |  | 
 **nickname** | **str** |  | 

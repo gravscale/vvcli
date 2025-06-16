@@ -17,19 +17,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class GetUserObjStorageSchema(BaseModel):
+class ContractSchema(BaseModel):
     """
-    GetUserObjStorageSchema
+    ContractSchema
     """ # noqa: E501
-    user_srn: StrictStr = Field(alias="userSrn")
-    contract_key: StrictStr = Field(alias="contractKey")
-    client_id: StrictStr = Field(alias="clientId")
-    __properties: ClassVar[List[str]] = ["userSrn", "contractKey", "clientId"]
+    client_id: StrictInt = Field(alias="clientId")
+    key: StrictStr
+    surname: Optional[StrictStr] = None
+    product: StrictStr
+    status: StrictStr
+    __properties: ClassVar[List[str]] = ["clientId", "key", "surname", "product", "status"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -49,7 +51,7 @@ class GetUserObjStorageSchema(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of GetUserObjStorageSchema from a JSON string"""
+        """Create an instance of ContractSchema from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -70,11 +72,16 @@ class GetUserObjStorageSchema(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if surname (nullable) is None
+        # and model_fields_set contains the field
+        if self.surname is None and "surname" in self.model_fields_set:
+            _dict['surname'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of GetUserObjStorageSchema from a dict"""
+        """Create an instance of ContractSchema from a dict"""
         if obj is None:
             return None
 
@@ -82,9 +89,11 @@ class GetUserObjStorageSchema(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "userSrn": obj.get("userSrn"),
-            "contractKey": obj.get("contractKey"),
-            "clientId": obj.get("clientId")
+            "clientId": obj.get("clientId"),
+            "key": obj.get("key"),
+            "surname": obj.get("surname"),
+            "product": obj.get("product"),
+            "status": obj.get("status")
         })
         return _obj
 
