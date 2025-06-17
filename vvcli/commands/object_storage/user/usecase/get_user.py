@@ -15,7 +15,7 @@ class GetUserObjectStorageCommand(
     AbstractPrintableTable, AbstractReadInputValue, AbstractPrintableJSON
 ):
     _printable_attributes = EnumObjectStoragePrintableAttributes
-    _table_headers = ["Client Id", "Name"]
+    _table_headers = ["Client Id", "Contract Key"]
 
     def __init__(self, client_id: str, configuration: vvcli_sdk.Configuration):
         self._configuration = configuration
@@ -25,7 +25,7 @@ class GetUserObjectStorageCommand(
         obj_users_info = []
         for obj_u in obj_users:
             obj_users_info.append(
-                (obj_u["clientId"], obj_u["displayName"])
+                (obj_u["clientId"], obj_u["contractKey"])
             )
         return obj_users_info
 
