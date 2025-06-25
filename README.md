@@ -18,9 +18,9 @@ Python 3.8+
 If the python package is hosted on a repository, you can install directly using:
 
 ```sh
-pip install git+https://github.com/gravscale/vvcli.git
+pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git
 ```
-(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/gravscale/vvcli.git`)
+(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git`)
 
 Then import the package:
 ```python
@@ -77,7 +77,7 @@ with vvcli_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = vvcli_sdk.AccountApi(api_client)
     uuid = 'uuid_example' # str |  (optional)
-    client_id = 56 # int |  (optional)
+    client_id = 'client_id_example' # str |  (optional)
 
     try:
         # Get Account
@@ -97,6 +97,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AccountApi* | [**get_account**](docs/AccountApi.md#get_account) | **GET** /account/ | Get Account
 *AccountApi* | [**list_accounts**](docs/AccountApi.md#list_accounts) | **GET** /account/all | List All Accounts
+*AccountApi* | [**list_contracts**](docs/AccountApi.md#list_contracts) | **GET** /account/contracts | List Contracts
 *AuthenticationApi* | [**info**](docs/AuthenticationApi.md#info) | **GET** /auth/info | Authenticated User Information
 *ObjectStorageApi* | [**create_client_user**](docs/ObjectStorageApi.md#create_client_user) | **POST** /object-storage/user | Create Client User Object Storage
 *ObjectStorageApi* | [**create_subuser**](docs/ObjectStorageApi.md#create_subuser) | **POST** /object-storage/subuser | Create Subuser Object Storage
@@ -109,6 +110,7 @@ Class | Method | HTTP request | Description
  - [AccessPermissions](docs/AccessPermissions.md)
  - [AccountSchema](docs/AccountSchema.md)
  - [AuthInfoSchema](docs/AuthInfoSchema.md)
+ - [ContractSchema](docs/ContractSchema.md)
  - [CreateSubUserObjStorageSchema](docs/CreateSubUserObjStorageSchema.md)
  - [CredentialKey](docs/CredentialKey.md)
  - [GetSubUserObjStorageSchema](docs/GetSubUserObjStorageSchema.md)
@@ -117,6 +119,7 @@ Class | Method | HTTP request | Description
  - [NewSubUserObjStorageSchema](docs/NewSubUserObjStorageSchema.md)
  - [NewUserObjStorageSchema](docs/NewUserObjStorageSchema.md)
  - [PageAccountSchema](docs/PageAccountSchema.md)
+ - [PageContractSchema](docs/PageContractSchema.md)
  - [PageGetSubUserObjStorageSchema](docs/PageGetSubUserObjStorageSchema.md)
  - [ValidationError](docs/ValidationError.md)
  - [ValidationErrorLocInner](docs/ValidationErrorLocInner.md)

@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -26,12 +26,11 @@ class ContractSchema(BaseModel):
     """
     ContractSchema
     """ # noqa: E501
-    client_id: StrictInt = Field(alias="clientId")
     key: StrictStr
     surname: Optional[StrictStr] = None
-    product: StrictStr
+    product_label: StrictStr = Field(alias="productLabel")
     status: StrictStr
-    __properties: ClassVar[List[str]] = ["clientId", "key", "surname", "product", "status"]
+    __properties: ClassVar[List[str]] = ["key", "surname", "productLabel", "status"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,10 +88,9 @@ class ContractSchema(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "clientId": obj.get("clientId"),
             "key": obj.get("key"),
             "surname": obj.get("surname"),
-            "product": obj.get("product"),
+            "productLabel": obj.get("productLabel"),
             "status": obj.get("status")
         })
         return _obj

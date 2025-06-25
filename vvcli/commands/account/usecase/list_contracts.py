@@ -15,7 +15,7 @@ class ListContractsCommand(
     AbstractPrintableTable, AbstractReadInputValue, AbstractPrintableJSON
 ):
     _printable_attributes = EnumAccountPrintableAttributes
-    _table_headers = ["Client ID", "Key", "Surname", "Product", "Status"]
+    _table_headers = ["Key", "Surname", "Product Label", "Status"]
 
     def __init__(
         self,
@@ -36,10 +36,9 @@ class ListContractsCommand(
         for acc in accounts:
             accounts_info.append(
                 (
-                    acc["clientId"],
                     acc["key"],
                     acc["surname"],
-                    acc["product"],
+                    acc["productLabel"],
                     acc["status"],
                 )
             )

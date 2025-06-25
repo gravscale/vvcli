@@ -35,38 +35,16 @@ class TestContractSchema(unittest.TestCase):
         model = ContractSchema()
         if include_optional:
             return ContractSchema(
-                client_id = 56,
                 key = '',
-                plan_label = '',
-                plan_name = '',
+                surname = '',
                 product_label = '',
-                product_name = '',
-                started_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                extras_value = 1.337,
-                plan_value = 1.337,
-                total_value = 1.337,
-                status = vvcli_sdk.models.status_contract_schema.StatusContractSchema(
-                    label = '', 
-                    label_client = '', 
-                    name = '', 
-                    name_client = '', )
+                status = ''
             )
         else:
             return ContractSchema(
-                client_id = 56,
                 key = '',
-                plan_label = '',
-                plan_name = '',
                 product_label = '',
-                product_name = '',
-                started_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                extras_value = 1.337,
-                total_value = 1.337,
-                status = vvcli_sdk.models.status_contract_schema.StatusContractSchema(
-                    label = '', 
-                    label_client = '', 
-                    name = '', 
-                    name_client = '', ),
+                status = '',
         )
         """
 

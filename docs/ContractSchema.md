@@ -5,10 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**client_id** | **int** |  | 
 **key** | **str** |  | 
-**surname** | **str** |  | 
-**product** | **str** |  | 
+**surname** | **str** |  | [optional] 
+**product_label** | **str** |  | 
 **status** | **str** |  | 
 
 ## Example
