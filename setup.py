@@ -30,6 +30,7 @@ REQUIRES = [
     "typing-extensions >= 4.7.1",
     "asyncclick",
     "toml",
+    "python-decouple",
 ]
 
 setup(

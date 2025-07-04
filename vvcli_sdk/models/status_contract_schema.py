@@ -22,10 +22,12 @@ from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class StatusContractSchema(BaseModel):
     """
     StatusContractSchema
-    """ # noqa: E501
+    """  # noqa: E501
+
     label: StrictStr
     label_client: StrictStr = Field(alias="labelClient")
     name: StrictStr
@@ -37,7 +39,6 @@ class StatusContractSchema(BaseModel):
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -63,8 +64,7 @@ class StatusContractSchema(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -82,12 +82,12 @@ class StatusContractSchema(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "label": obj.get("label"),
-            "labelClient": obj.get("labelClient"),
-            "name": obj.get("name"),
-            "nameClient": obj.get("nameClient")
-        })
+        _obj = cls.model_validate(
+            {
+                "label": obj.get("label"),
+                "labelClient": obj.get("labelClient"),
+                "name": obj.get("name"),
+                "nameClient": obj.get("nameClient"),
+            }
+        )
         return _obj
-
-

@@ -1,20 +1,23 @@
 from typing import List
 
 import click
-from pydantic_core import ValidationError
 
 import vvcli_sdk
 from vvcli_sdk import AccessPermissions
+from ...enum import EnumObjectStoragePrintableAttributes
 from ....abstract import (
     AbstractReadInputValue,
     AbstractPrintableJSON,
     AbstractPrintableTable,
+    AbstractPrintException,
 )
-from ...enum import EnumObjectStoragePrintableAttributes
 
 
 class CreateObjectStorageSubUserCommand(
-    AbstractPrintableTable, AbstractReadInputValue, AbstractPrintableJSON
+    AbstractPrintException,
+    AbstractPrintableTable,
+    AbstractReadInputValue,
+    AbstractPrintableJSON,
 ):
     _printable_attributes = EnumObjectStoragePrintableAttributes
     _table_headers = ["Display Name", "Client Id", "Access Key", "Secret Key"]
@@ -59,10 +62,14 @@ class CreateObjectStorageSubUserCommand(
         self._access = await self._read_prompt_input(
             self._printable_attributes.ACCESS.value,
             self._access,
-            [(validate_access_permission, "Invalid access permission value. Try: read, write, readwrite")],
+            [
+                (
+                    validate_access_permission,
+                    "Invalid access permission value. Try: read, write, readwrite",
+                )
+            ],
             type=str,
         )
-
 
     async def execute(self, return_json=False):
         await self._validate()
@@ -77,7 +84,7 @@ class CreateObjectStorageSubUserCommand(
                 )
                 obj_user = api_instance.create_subuser(new_subuser)
         except vvcli_sdk.exceptions.ApiException as exc:
-            click.echo(f"Error: [{exc.status}] [{exc.reason}] {exc.body}")
+            await self.print_exception(exc)
             return
 
         if return_json:

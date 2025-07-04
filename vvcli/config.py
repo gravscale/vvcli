@@ -1,16 +1,19 @@
-from datetime import datetime
-from pathlib import Path
-import os
 import json
+import os
+from pathlib import Path
+
 import toml
+
 import vvcli_sdk
+from decouple import config
 
 
 class CliConfiguration:
-    host = "http://under-dev-services.gravmanage.com/dev/public-api/public"
+    host: str
 
     def __init__(self):
         self._config_path = self._get_config_path()
+        self.host = config("VVCLI_API_ENDPOINT", None)
 
     @classmethod
     def _get_config_path(cls):

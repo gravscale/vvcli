@@ -26,6 +26,7 @@ async def list_accounts(obj, json: bool):
         return_json=json
     )
 
+
 @account_group.command("contracts")
 @click.option("--uuid", "-u", required=False, type=str, help="Account uuid")
 @click.option("--client-id", "-ci", required=False, type=str, help="Account client id")

@@ -1,18 +1,20 @@
 from typing import List
 
-import click
-
 import vvcli_sdk
+from ...enum import EnumObjectStoragePrintableAttributes
 from ....abstract import (
     AbstractReadInputValue,
     AbstractPrintableJSON,
     AbstractPrintableTable,
+    AbstractPrintException,
 )
-from ...enum import EnumObjectStoragePrintableAttributes
 
 
 class GetUserObjectStorageCommand(
-    AbstractPrintableTable, AbstractReadInputValue, AbstractPrintableJSON
+    AbstractPrintException,
+    AbstractPrintableTable,
+    AbstractReadInputValue,
+    AbstractPrintableJSON,
 ):
     _printable_attributes = EnumObjectStoragePrintableAttributes
     _table_headers = ["Client Id", "Contract Key"]
@@ -24,9 +26,7 @@ class GetUserObjectStorageCommand(
     async def _gen_table_rows(self, obj_users: List[dict]):
         obj_users_info = []
         for obj_u in obj_users:
-            obj_users_info.append(
-                (obj_u["clientId"], obj_u["contractKey"])
-            )
+            obj_users_info.append((obj_u["clientId"], obj_u["contractKey"]))
         return obj_users_info
 
     async def _validate(self):
@@ -43,7 +43,7 @@ class GetUserObjectStorageCommand(
                 api_instance = vvcli_sdk.ObjectStorageApi(api_client)
                 obj_user = api_instance.get_client_user(self._client_id)
         except vvcli_sdk.exceptions.ApiException as exc:
-            click.echo(f"Error: [{exc.status}] [{exc.reason}] {exc.body}")
+            await self.print_exception(exc)
             return
 
         if return_json:

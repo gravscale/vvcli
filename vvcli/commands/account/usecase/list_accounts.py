@@ -1,10 +1,16 @@
 from typing import List
 
 import vvcli_sdk
-from ...abstract import AbstractPrintableTable, AbstractPrintableJSON
+from ...abstract import (
+    AbstractPrintableTable,
+    AbstractPrintableJSON,
+    AbstractPrintException,
+)
 
 
-class ListAccountsCommand(AbstractPrintableTable, AbstractPrintableJSON):
+class ListAccountsCommand(
+    AbstractPrintException, AbstractPrintableTable, AbstractPrintableJSON
+):
     _table_headers = ["Account UUID", "Name", "Client ID", "Status"]
 
     def __init__(self, configuration: vvcli_sdk.Configuration):
@@ -19,9 +25,13 @@ class ListAccountsCommand(AbstractPrintableTable, AbstractPrintableJSON):
         return accounts_info
 
     async def execute(self, return_json=False):
-        with vvcli_sdk.ApiClient(self._configuration) as api_client:
-            api_instance = vvcli_sdk.AccountApi(api_client)
-            accounts = api_instance.list_accounts()
+        try:
+            with vvcli_sdk.ApiClient(self._configuration) as api_client:
+                api_instance = vvcli_sdk.AccountApi(api_client)
+                accounts = api_instance.list_accounts()
+        except vvcli_sdk.exceptions.ApiException as exc:
+            await self.print_exception(exc)
+            return
 
         if return_json:
             await self._echo_json(accounts.to_dict())

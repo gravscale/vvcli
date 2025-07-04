@@ -4,6 +4,7 @@ from typing import List, Callable, Any, Tuple
 
 import click
 
+import vvcli_sdk
 from .exceptions import ReadInputValueException, PrintableTableException
 from .utils import get_columns_size, get_max_size_columns
 
@@ -96,3 +97,23 @@ class AbstractReadInputValue(metaclass=ABCMeta):
             )
         except click.exceptions.Abort:
             raise ReadInputValueException("Input aborted")
+
+
+class AbstractPrintException(metaclass=ABCMeta):
+    @classmethod
+    def is_json(cls, valor):
+        if not isinstance(valor, str):
+            return False
+        try:
+            json.loads(valor)
+            return True
+        except json.JSONDecodeError:
+            return False
+
+    async def print_exception(self, exc: vvcli_sdk.exceptions.ApiException):
+        message = ""
+        if self.is_json(exc.body):
+            data = json.loads(exc.body)
+            message = data.get("detail") if "detail" in data.keys() else data
+
+        click.echo(f"Error: [{exc.status}] [{exc.reason}] {message}")

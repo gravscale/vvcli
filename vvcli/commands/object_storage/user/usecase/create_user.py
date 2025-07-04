@@ -1,18 +1,20 @@
 from typing import List
 
-import click
-
 import vvcli_sdk
+from ...enum import EnumObjectStoragePrintableAttributes
 from ....abstract import (
     AbstractReadInputValue,
     AbstractPrintableJSON,
     AbstractPrintableTable,
+    AbstractPrintException,
 )
-from ...enum import EnumObjectStoragePrintableAttributes
 
 
 class CreateObjectStorageUserCommand(
-    AbstractPrintableTable, AbstractReadInputValue, AbstractPrintableJSON
+    AbstractPrintException,
+    AbstractPrintableTable,
+    AbstractReadInputValue,
+    AbstractPrintableJSON,
 ):
     _printable_attributes = EnumObjectStoragePrintableAttributes
     _table_headers = ["Client Id", "Contract Key", "Access Key", "Secret Key"]
@@ -49,7 +51,7 @@ class CreateObjectStorageUserCommand(
                 api_instance = vvcli_sdk.ObjectStorageApi(api_client)
                 obj_user = api_instance.create_client_user(self._client_id)
         except vvcli_sdk.exceptions.ApiException as exc:
-            click.echo(f"Error: [{exc.status}] [{exc.reason}] {exc.body}")
+            await self.print_exception(exc)
             return
 
         if return_json:

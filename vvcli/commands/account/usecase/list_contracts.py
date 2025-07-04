@@ -8,11 +8,15 @@ from ...abstract import (
     AbstractPrintableTable,
     AbstractPrintableJSON,
     AbstractReadInputValue,
+    AbstractPrintException,
 )
 
 
 class ListContractsCommand(
-    AbstractPrintableTable, AbstractReadInputValue, AbstractPrintableJSON
+    AbstractPrintException,
+    AbstractPrintableTable,
+    AbstractReadInputValue,
+    AbstractPrintableJSON,
 ):
     _printable_attributes = EnumAccountPrintableAttributes
     _table_headers = ["Key", "Surname", "Product Label", "Status"]
@@ -62,7 +66,7 @@ class ListContractsCommand(
                     contract_key=self._key,
                 )
         except vvcli_sdk.exceptions.ApiException as exc:
-            click.echo(f"Error: [{exc.status}] [{exc.reason}] {exc.body}")
+            await self.print_exception(exc)
             return
 
         if return_json:
