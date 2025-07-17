@@ -28,7 +28,6 @@ class GetSubUserObjStorageSchema(BaseModel):
     GetSubUserObjStorageSchema
     """  # noqa: E501
 
-    user_srn: StrictStr = Field(alias="userSrn")
     display_name: StrictStr = Field(alias="displayName")
     client_id: StrictStr = Field(alias="clientId")
     __properties: ClassVar[List[str]] = ["userSrn", "displayName", "clientId"]
@@ -83,7 +82,6 @@ class GetSubUserObjStorageSchema(BaseModel):
 
         _obj = cls.model_validate(
             {
-                "userSrn": obj.get("userSrn"),
                 "displayName": obj.get("displayName"),
                 "clientId": obj.get("clientId"),
             }

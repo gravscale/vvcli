@@ -1,5 +1,29 @@
 # vvcli
-A VVCLI permite que usuários autentiquem para acessar contas e contratos usando SDK ou CLI, além de gerenciar contratos de Armazenamento de Objetos. Com foco na criação de credenciais S3 para usuários e subusuários, a solução simplifica o gerenciamento de recursos através de uma experiência integrada e intuitiva.
+O VVCLI permite que usuários autentiquem para acessar contas e contratos usando SDK ou CLI, 
+além de gerenciar contratos de Armazenamento de Objetos. Com foco na criação de credenciais S3 para usuários e subusuários, 
+a solução simplifica o gerenciamento de recursos através de uma experiência integrada e intuitiva.
+
+**Navegação** 🔗
+
+- [Autenticação](#autenticação)
+- [Requisitos do Sistema](#requisitos)
+- [Instalação](#instalação)
+  - [Via pip](#instalação-via-pip)
+  - [Via Setuptools](#instalação-via-setuptools)
+- [Documentação](#documentação)
+  - [CLI](#cli)
+  - [SDK](#sdk)
+- [Autor](#autor)
+
+
+
+
+## Autenticação
+**Acesse o** [Under Control](https://control.under.com.br/).
+
+- Clique no seu avatar/no canto inferior esquerdo
+- Selecione **"Tokens de acesso"** no menu
+- Clique em **"Gerenciar novo Token"** para gerar uma credencial
 
 ## Requisitos
 Python 3.8+
@@ -34,7 +58,7 @@ Todos os recursos do SDK e CLI utilizam a API pública da Under:
 https://api.under.com.br/api/v1
 ```
 ---
-**Fluxo de Autenticação CLI**:
+**CLI**:
 1. Gere token na plataforma Under
 2. Configure localmente:
    ```bash
@@ -44,12 +68,12 @@ https://api.under.com.br/api/v1
    ```bash
    vvcli auth info
    ```
-**Documentação Detalhada CLI**:
+**Mais informações CLI**:
 - [CLI (Command line interface)](vvcli/README.md)
 
 ---
 
-**Exemplo Prático SDK**:
+**SDK**:
 ```python
 import vvcli_sdk
 from vvcli_sdk.rest import ApiException
@@ -77,7 +101,7 @@ with vvcli_sdk.ApiClient(configuration) as api_client:
         print("Erro na chamada da API: %s\n" % e)
 ```
 
-**Documentação Detalhada SDK**:
+**Mais informações SDK**:
 - [SDK (Software Development Kit)](vvcli_sdk/README.md)
 
 
