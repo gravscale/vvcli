@@ -1,0 +1,44 @@
+from typing import List
+
+import vvcli_sdk
+from ...abstract import (
+    AbstractPrintableTable,
+    AbstractPrintableJSON,
+    AbstractPrintException,
+)
+
+
+class ListAccountsCommand(
+    AbstractPrintException, AbstractPrintableTable, AbstractPrintableJSON
+):
+    _table_headers = ["Account UUID", "Name", "Client ID", "Status"]
+
+    def __init__(self, configuration: vvcli_sdk.Configuration):
+        self._configuration = configuration
+
+    async def _gen_table_rows(self, accounts: List[dict]):
+        accounts_info = []
+        for acc in accounts:
+            accounts_info.append(
+                (acc["uuid"], acc["clientName"], acc["clientId"], acc["clientStatus"])
+            )
+        return accounts_info
+
+    async def execute(self, return_json=False):
+        try:
+            with vvcli_sdk.ApiClient(self._configuration) as api_client:
+                api_instance = vvcli_sdk.AccountApi(api_client)
+                accounts = api_instance.list_accounts()
+        except vvcli_sdk.exceptions.ApiException as exc:
+            await self.print_exception(exc)
+            return
+
+        if return_json:
+            await self._echo_json(accounts.to_dict())
+            return
+
+        acc_info = await self._gen_table_rows(accounts.to_dict()["items"])
+        column_widths = await self._calculate_columns_width(
+            self._table_headers, acc_info
+        )
+        await self._echo_table(column_widths, self._table_headers, acc_info)
