@@ -4,7 +4,7 @@
 #### Variáveis de ambiente
 
 ```bash
-  export VVCLI_API_ENDPOINT="https://api.under.com.br/api/v1"
+  export VVCLI_API_ENDPOINT="https://api.under.com.br/v1"
 ```
 
 Após instalação, execute no terminal:

@@ -11,7 +11,7 @@ import os
 
 # Configuração básica
 configuration = vvcli_sdk.Configuration(
-    host = "https://api.under.com.br/api/v1"
+    host = "https://api.under.com.br/v1"
 )
 
 # Configuração de autenticação
@@ -32,7 +32,7 @@ with vvcli_sdk.ApiClient(configuration) as api_client:
 
 ## Documentação dos Endpoints da API
 
-Todos os endpoints são relativos a *https://api.under.com.br/api/v1*
+Todos os endpoints são relativos a *https://api.under.com.br/v1*
 
 Classe | Método | Requisição | Descrição
 ------------ | ------------- | ------------- | -------------

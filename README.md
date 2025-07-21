@@ -53,8 +53,8 @@ Instale usando [Setuptools](http://pypi.python.org/pypi/setuptools):
 
 ## Documentação 
 Todos os recursos do SDK e CLI utilizam a API pública da Under: 
-```
-https://api.under.com.br/api/v1
+```sh
+  export VVCLI_API_ENDPOINT=https://api.under.com.br/v1
 ```
 ---
 **CLI**:
@@ -81,7 +81,7 @@ import os
 
 # Configuração básica
 configuration = vvcli_sdk.Configuration(
-    host = "https://api.under.com.br/api/v1"
+    host = "https://api.under.com.br/v1"
 )
 
 # Configuração de autenticação
