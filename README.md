@@ -17,13 +17,12 @@ a solução simplifica o gerenciamento de recursos através de uma experiência 
 
 
 
-
 ## Autenticação
-**Acesse o** [Under Control](https://control.under.com.br/).
+**Acesse o** [Under Control](https://control-next.under.com.br/).
 
-- Clique no seu avatar/no canto inferior esquerdo
+- Clique no seu avatar no canto inferior esquerdo
 - Selecione **"Tokens de acesso"** no menu
-- Clique em **"Gerenciar novo Token"** para gerar uma credencial
+- Clique em **"Gerar Token"** para gerar uma credencial
 
 ## Requisitos
 Python 3.8+
