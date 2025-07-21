@@ -36,17 +36,17 @@ REQUIRES = [
 setup(
     name=NAME,
     version=VERSION,
-    description="PUBLIC - Gravscale Public Restful API",
+    description="VVCLI",
     author="Under DEV",
     author_email="dev@under.com.br",
-    url="",
-    keywords=["OpenAPI", "OpenAPI-Generator", "PUBLIC - Gravscale Public Restful API"],
+    url="https://github.com/gravscale/vvcli",
+    keywords=["OpenAPI", "OpenAPI-Generator", "VVCLI"],
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),
     include_package_data=True,
     long_description_content_type="text/markdown",
     long_description="""\
-    API pública da Gravscale oferece aos usuários a capacidade de se autenticar, visualizar e contratar produtos disponíveis, enviar dados de contratação, escolher formas de pagamento e gerenciar nossos produtos. Além disso, os usuários podem cadastrar chaves SSH e realizar o deploy de um sistema operacional de forma eficiente e segura. Esta API foi projetado para simplificar e agilizar o gerenciamento de recursos proporcionando que a a Gravscale forneça uma experiência integrada e intuitiva para os usuários.
+    O VVCLI permite que usuários autentiquem para acessar contas e contratos usando SDK ou CLI, além de gerenciar contratos de Armazenamento de Objetos. Com foco na criação de credenciais S3 para usuários e subusuários, a solução simplifica o gerenciamento de recursos através de uma experiência integrada e intuitiva.
     """,  # noqa: E501
     package_data={"vvcli_sdk": ["py.typed"]},
     entry_points="""
