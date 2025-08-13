@@ -28,9 +28,9 @@ class GetUserObjStorageSchema(BaseModel):
     GetUserObjStorageSchema
     """  # noqa: E501
 
-    contract_key: StrictStr = Field(alias="contractKey")
     client_id: StrictStr = Field(alias="clientId")
-    __properties: ClassVar[List[str]] = ["contractKey", "clientId"]
+    contract_key: StrictStr = Field(alias="contractKey")
+    __properties: ClassVar[List[str]] = ["clientId", "contractKey"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -81,9 +81,6 @@ class GetUserObjStorageSchema(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate(
-            {
-                "contractKey": obj.get("contractKey"),
-                "clientId": obj.get("clientId"),
-            }
+            {"clientId": obj.get("clientId"), "contractKey": obj.get("contractKey")}
         )
         return _obj

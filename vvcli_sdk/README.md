@@ -40,7 +40,7 @@ Classe | Método | Requisição | Descrição
 *AccountApi* | [**list_accounts**](docs/AccountApi.md#list_accounts) | **GET** /account/all | Listar Todas as Contas
 *AccountApi* | [**list_contracts**](docs/AccountApi.md#list_contracts) | **GET** /account/contracts | Listar Contratos
 *AuthenticationApi* | [**info**](docs/AuthenticationApi.md#info) | **GET** /auth/info | Informações do Usuário Autenticado
-*ObjectStorageApi* | [**create_client_user**](docs/ObjectStorageApi.md#create_client_user) | **POST** /object-storage/user | Criar Usuário para Object Storage
+*ObjectStorageApi* | [**create_client_user**](docs/ObjectStorageApi.md#create_client_user) | **POST** /object-storage/user | Criar Usuário S3 para Object Storage
 *ObjectStorageApi* | [**create_subuser**](docs/ObjectStorageApi.md#create_subuser) | **POST** /object-storage/subuser | Criar Subusuário para Object Storage
 *ObjectStorageApi* | [**get_client_user**](docs/ObjectStorageApi.md#get_client_user) | **GET** /object-storage/user | Obter Usuário em uso Object Storage
 *ObjectStorageApi* | [**get_subusers**](docs/ObjectStorageApi.md#get_subusers) | **GET** /object-storage/subuser | Obter Subusuários em uso Object Storage

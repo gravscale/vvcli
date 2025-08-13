@@ -191,6 +191,7 @@ class Configuration:
         retries: Optional[int] = None,
         *,
         debug: Optional[bool] = None,
+        verify_ssl: bool = True,
     ) -> None:
         """Constructor"""
         self._base_path = "https://api.under.com.br/v1" if host is None else host
@@ -257,7 +258,7 @@ class Configuration:
         """Debug switch
         """
 
-        self.verify_ssl = True
+        self.verify_ssl = verify_ssl
         """SSL/TLS verification
            Set this to false to skip verifying SSL certificate when calling API
            from https server.

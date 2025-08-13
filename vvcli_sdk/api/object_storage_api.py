@@ -16,7 +16,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import Field, StrictInt, StrictStr
 from typing import Optional
 from typing_extensions import Annotated
 from vvcli_sdk.models.create_sub_user_obj_storage_schema import (
@@ -50,6 +50,7 @@ class ObjectStorageApi:
     def create_client_user(
         self,
         client_id: StrictStr,
+        size_quota: StrictInt,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -64,10 +65,12 @@ class ObjectStorageApi:
     ) -> NewUserObjStorageSchema:
         """Create Client User Object Storage
 
-        **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new Object Storage user associated with a specific account. Generates unique access credentials for integration with cloud storage services. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id.
+        Temporarily disabled.      **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new Object Storage user associated with a specific account. Generates unique access credentials for integration with cloud storage services. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id. - `size_quota` (integer): User quota in gigabyte (GB). The value must be between 10 GB and 1000 GB.
 
         :param client_id: (required)
         :type client_id: str
+        :param size_quota: (required)
+        :type size_quota: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -92,6 +95,7 @@ class ObjectStorageApi:
 
         _param = self._create_client_user_serialize(
             client_id=client_id,
+            size_quota=size_quota,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -115,6 +119,7 @@ class ObjectStorageApi:
     def create_client_user_with_http_info(
         self,
         client_id: StrictStr,
+        size_quota: StrictInt,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -129,10 +134,12 @@ class ObjectStorageApi:
     ) -> ApiResponse[NewUserObjStorageSchema]:
         """Create Client User Object Storage
 
-        **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new Object Storage user associated with a specific account. Generates unique access credentials for integration with cloud storage services. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id.
+        Temporarily disabled.      **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new Object Storage user associated with a specific account. Generates unique access credentials for integration with cloud storage services. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id. - `size_quota` (integer): User quota in gigabyte (GB). The value must be between 10 GB and 1000 GB.
 
         :param client_id: (required)
         :type client_id: str
+        :param size_quota: (required)
+        :type size_quota: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -157,6 +164,7 @@ class ObjectStorageApi:
 
         _param = self._create_client_user_serialize(
             client_id=client_id,
+            size_quota=size_quota,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -180,6 +188,7 @@ class ObjectStorageApi:
     def create_client_user_without_preload_content(
         self,
         client_id: StrictStr,
+        size_quota: StrictInt,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -194,10 +203,12 @@ class ObjectStorageApi:
     ) -> RESTResponseType:
         """Create Client User Object Storage
 
-        **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new Object Storage user associated with a specific account. Generates unique access credentials for integration with cloud storage services. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id.
+        Temporarily disabled.      **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new Object Storage user associated with a specific account. Generates unique access credentials for integration with cloud storage services. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id. - `size_quota` (integer): User quota in gigabyte (GB). The value must be between 10 GB and 1000 GB.
 
         :param client_id: (required)
         :type client_id: str
+        :param size_quota: (required)
+        :type size_quota: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -222,6 +233,7 @@ class ObjectStorageApi:
 
         _param = self._create_client_user_serialize(
             client_id=client_id,
+            size_quota=size_quota,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -240,6 +252,7 @@ class ObjectStorageApi:
     def _create_client_user_serialize(
         self,
         client_id,
+        size_quota,
         _request_auth,
         _content_type,
         _headers,
@@ -264,6 +277,10 @@ class ObjectStorageApi:
         if client_id is not None:
 
             _query_params.append(("client_id", client_id))
+
+        if size_quota is not None:
+
+            _query_params.append(("size_quota", size_quota))
 
         # process the header parameters
         # process the form parameters

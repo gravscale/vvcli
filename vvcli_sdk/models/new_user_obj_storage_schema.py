@@ -29,11 +29,10 @@ class NewUserObjStorageSchema(BaseModel):
     NewUserObjStorageSchema
     """  # noqa: E501
 
-    user_srn: StrictStr = Field(alias="userSrn")
-    contract_key: StrictStr = Field(alias="contractKey")
     client_id: StrictStr = Field(alias="clientId")
+    contract_key: StrictStr = Field(alias="contractKey")
     keys: Optional[List[CredentialKey]] = None
-    __properties: ClassVar[List[str]] = ["userSrn", "contractKey", "clientId", "keys"]
+    __properties: ClassVar[List[str]] = ["clientId", "contractKey", "keys"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -97,9 +96,8 @@ class NewUserObjStorageSchema(BaseModel):
 
         _obj = cls.model_validate(
             {
-                "userSrn": obj.get("userSrn"),
-                "contractKey": obj.get("contractKey"),
                 "clientId": obj.get("clientId"),
+                "contractKey": obj.get("contractKey"),
                 "keys": (
                     [CredentialKey.from_dict(_item) for _item in obj["keys"]]
                     if obj.get("keys") is not None

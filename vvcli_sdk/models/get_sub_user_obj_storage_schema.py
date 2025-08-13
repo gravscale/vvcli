@@ -28,9 +28,9 @@ class GetSubUserObjStorageSchema(BaseModel):
     GetSubUserObjStorageSchema
     """  # noqa: E501
 
-    display_name: StrictStr = Field(alias="displayName")
     client_id: StrictStr = Field(alias="clientId")
-    __properties: ClassVar[List[str]] = ["userSrn", "displayName", "clientId"]
+    display_name: StrictStr = Field(alias="displayName")
+    __properties: ClassVar[List[str]] = ["clientId", "displayName"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -81,9 +81,6 @@ class GetSubUserObjStorageSchema(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate(
-            {
-                "displayName": obj.get("displayName"),
-                "clientId": obj.get("clientId"),
-            }
+            {"clientId": obj.get("clientId"), "displayName": obj.get("displayName")}
         )
         return _obj

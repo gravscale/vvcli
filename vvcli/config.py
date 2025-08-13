@@ -13,7 +13,8 @@ class CliConfiguration:
 
     def __init__(self):
         self._config_path = self._get_config_path()
-        self.host = config("VVCLI_API_ENDPOINT", None)
+        self.host = config("VVCLI_API_ENDPOINT", cast=str, default=None)
+        self.verify_ssl = config("VVCLI_VERIFY_SSL", cast=bool, default=True)
 
     @classmethod
     def _get_config_path(cls):
@@ -43,7 +44,7 @@ class CliConfiguration:
             )
 
     def load_sdk_configuration(self) -> vvcli_sdk.Configuration:
-        config = {"host": self.host}
+        config = {"host": self.host, "verify_ssl": self.verify_ssl}
         auth = self._load_authorization()
         if "access_token" in auth.keys():
             config["access_token"] = auth.get("access_token")

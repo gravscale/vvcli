@@ -1,7 +1,9 @@
-from typing import List
+from typing import List, Optional
+
+import click
 
 import vvcli_sdk
-from ...enum import EnumObjectStoragePrintableAttributes
+from ...enum import EnumObjectStoragePrintableAttributes, EnumQuotaSize
 from ....abstract import (
     AbstractReadInputValue,
     AbstractPrintableJSON,
@@ -19,9 +21,12 @@ class CreateObjectStorageUserCommand(
     _printable_attributes = EnumObjectStoragePrintableAttributes
     _table_headers = ["Client Id", "Contract Key", "Access Key", "Secret Key"]
 
-    def __init__(self, client_id: str, configuration: vvcli_sdk.Configuration):
+    def __init__(
+        self, client_id: str, size_quota: int, configuration: vvcli_sdk.Configuration
+    ):
         self._configuration = configuration
         self._client_id = client_id
+        self._size_quota = size_quota
 
     async def _gen_table_rows(self, obj_users: List[dict]):
         obj_users_info = []
@@ -39,17 +44,41 @@ class CreateObjectStorageUserCommand(
 
     async def _validate(self):
 
+        def validate_user_quota(value):
+            EnumQuotaSize(value)
+
         self._client_id = await self._read_prompt_input(
             self._printable_attributes.CLIENT_ID.value, self._client_id, type=str
         )
 
-    async def execute(self, return_json=False):
-        await self._validate()
+        self._size_quota = await self._read_prompt_input(
+            self._printable_attributes.QUOTA.value,
+            self._size_quota,
+            [
+                (
+                    validate_user_quota,
+                    f"Invalid user quota value. Options: {', '.join([f'{m.value}' for m in EnumQuotaSize])}",
+                )
+            ],
+            type=int,
+        )
+        click.echo("\nConfirmation for contracting object storage.")
+        click.echo(f"Client ID: {self._client_id}")
+        click.echo(f"Quota size: {self._size_quota}GB")
+        value = click.prompt("Press `Y` to continue, any other key to cancel")
+        if str(value).lower() != "y":
+            return False
+        return True
 
+    async def execute(self, return_json=False):
+        if not await self._validate():
+            return
         try:
             with vvcli_sdk.ApiClient(self._configuration) as api_client:
                 api_instance = vvcli_sdk.ObjectStorageApi(api_client)
-                obj_user = api_instance.create_client_user(self._client_id)
+                obj_user = api_instance.create_client_user(
+                    self._client_id, self._size_quota
+                )
         except vvcli_sdk.exceptions.ApiException as exc:
             await self.print_exception(exc)
             return
