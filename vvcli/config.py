@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 
 import toml
+import urllib3
 
 import vvcli_sdk
 from decouple import config
@@ -16,6 +17,7 @@ class CliConfiguration:
         self._config_path = self._get_config_path()
         self.host = config("VVCLI_API_ENDPOINT", default="https://api.under.com.br/v1")
         self.verify_ssl = config("VVCLI_VERIFY_SSL", cast=bool, default=True)
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     @classmethod
     def _get_config_path(cls):
