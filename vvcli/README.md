@@ -25,7 +25,7 @@ Gerencia credenciais e tokens de acesso
 
 **Exemplo de autenticação**:
 ```bash
-  vvcli auth configure -t "SEU_API_TOKEN" 
+  vvcli auth configure -t API_TOKEN  #Inclua sua chave de API fornecida pelo under control
 ```
 
 ### 🏢 `account` - Gestão de Contas
@@ -48,7 +48,7 @@ Operações com armazenamento de objetos (S3-compatível)
 
 **Exemplo de uso**:
 ```bash
-  vvcli obj user add -c 1001011 -j # Cria usuário e retorna resultado em JSON
+  vvcli obj user add -c 1001011 -j -s 100 # Cria usuário S3 com quota de 100GB e retorna resultado em JSON
 ```
 
 ---

@@ -10,10 +10,11 @@ from decouple import config
 
 class CliConfiguration:
     host: str
+    verify_ssl: bool
 
     def __init__(self):
         self._config_path = self._get_config_path()
-        self.host = config("VVCLI_API_ENDPOINT", cast=str, default=None)
+        self.host = config("VVCLI_API_ENDPOINT", default="https://api.under.com.br/v1")
         self.verify_ssl = config("VVCLI_VERIFY_SSL", cast=bool, default=True)
 
     @classmethod

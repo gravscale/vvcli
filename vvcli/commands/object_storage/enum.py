@@ -12,10 +12,13 @@ class EnumObjectStoragePrintableAttributes(str, Enum):
 
 
 class EnumQuotaSize(int, Enum):
-    SIZE_10GB = 10
-    SIZE_25GB = 25
-    SIZE_50GB = 50
     SIZE_100GB = 100
-    SIZE_250GB = 250
+    SIZE_200GB = 200
+    SIZE_300GB = 300
     SIZE_500GB = 500
+    SIZE_600GB = 600
+    SIZE_700GB = 700
+    SIZE_800GB = 800
+    SIZE_900GB = 900
     SIZE_1000GB = 1000
+
