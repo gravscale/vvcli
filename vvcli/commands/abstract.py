@@ -69,7 +69,7 @@ class AbstractPrintableTask(metaclass=ABCMeta):
     @classmethod
     async def _echo_task_info(cls, task):
         click.echo(f"Status: {task.status}") if task.status else None
-        click.echo(f"Result: {str(task.result)}") if task.result else None
+        click.echo(f"Resultado: {str(task.result)}") if task.result else None
 
 
 class AbstractReadInputValue(metaclass=ABCMeta):
@@ -89,14 +89,14 @@ class AbstractReadInputValue(metaclass=ABCMeta):
                     error = msg_error
                     validator(value)
             return value
-        except ValueError as exc:
+        except (ValueError, click.exceptions.BadParameter) as exc:
             error = error if error else exc.args[0]
             click.echo(error)
             return await cls._read_prompt_input(
                 text, None, validators=validators, **kwargs
             )
         except click.exceptions.Abort:
-            raise ReadInputValueException("Input aborted")
+            raise ReadInputValueException("Entrada abortada")
 
 
 class AbstractPrintException(metaclass=ABCMeta):
@@ -116,4 +116,4 @@ class AbstractPrintException(metaclass=ABCMeta):
             data = json.loads(exc.body)
             message = data.get("detail") if "detail" in data.keys() else data
 
-        click.echo(f"Error: [{exc.status}] [{exc.reason}] {message}")
+        click.echo(f"Erro: [{exc.status}] [{exc.reason}] {message}")

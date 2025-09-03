@@ -17,7 +17,7 @@ async def account_group():
     is_flag=True,
     default=False,
     type=bool,
-    help="Returned result as JSON",
+    help="Resultado retornado como JSON",
 )
 @click.pass_obj
 async def list_accounts(obj, json: bool):
@@ -38,7 +38,7 @@ async def list_accounts(obj, json: bool):
     is_flag=True,
     default=False,
     type=bool,
-    help="Returned result as JSON",
+    help="Resultado retornado como JSON",
 )
 @click.pass_obj
 async def account_contracts(

@@ -19,7 +19,7 @@ class CreateObjectStorageUserCommand(
     AbstractPrintableJSON,
 ):
     _printable_attributes = EnumObjectStoragePrintableAttributes
-    _table_headers = ["Client Id", "Contract Key", "Access Key", "Secret Key"]
+    _table_headers = ["Cliente Id", "Contract Key", "Access Key", "Secret Key"]
 
     def __init__(
         self, client_id: str, size_quota: int, configuration: vvcli_sdk.Configuration
@@ -45,7 +45,10 @@ class CreateObjectStorageUserCommand(
     async def _validate(self):
 
         def validate_user_quota(value):
-            EnumQuotaSize(value)
+            if value < 100 or value > 50000:
+                raise click.BadParameter("Informe um valor entre 100 e 50000")
+
+
 
         self._client_id = await self._read_prompt_input(
             self._printable_attributes.CLIENT_ID.value, self._client_id, type=str
@@ -57,16 +60,16 @@ class CreateObjectStorageUserCommand(
             [
                 (
                     validate_user_quota,
-                    f"Invalid user quota value. Options: {', '.join([f'{m.value}' for m in EnumQuotaSize])}",
+                    "Informe um valor entre 100 e 50000" ,
                 )
             ],
             type=int,
         )
-        click.echo("\nConfirmation for contracting object storage.")
-        click.echo(f"Client ID: {self._client_id}")
-        click.echo(f"Quota size: {self._size_quota}GB")
-        value = click.prompt("Press `Y` to continue, any other key to cancel")
-        if str(value).lower() != "y":
+        click.echo("\nConfirmação para contratação de armazenamento de objetos.")
+        click.echo(f"Cliente ID: {self._client_id}")
+        click.echo(f"Tamanho da cota: {self._size_quota}GB")
+        value = click.prompt("Pressione `S` para continuar, qualquer outra tecla para cancelar")
+        if str(value).lower() != "s":
             return False
         return True
 

@@ -20,7 +20,7 @@ class CreateObjectStorageSubUserCommand(
     AbstractPrintableJSON,
 ):
     _printable_attributes = EnumObjectStoragePrintableAttributes
-    _table_headers = ["Display Name", "Client Id", "Access Key", "Secret Key"]
+    _table_headers = ["Display Name", "Cliente Id", "Access Key", "Secret Key"]
 
     def __init__(
         self,
@@ -65,7 +65,7 @@ class CreateObjectStorageSubUserCommand(
             [
                 (
                     validate_access_permission,
-                    "Invalid access permission value. Try: read, write, readwrite",
+                    "Valor de permissão de acesso inválido. Tente: read, write, readwrite",
                 )
             ],
             type=str,

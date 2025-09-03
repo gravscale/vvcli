@@ -28,7 +28,7 @@ async def obj_subuser_group():
     is_flag=True,
     default=False,
     type=bool,
-    help="Returned result as JSON",
+    help="Resultado retornado como JSON",
 )
 @click.pass_obj
 async def add_subuser(obj, client_id: str, display_name: str, access: str, json: bool):
@@ -46,7 +46,7 @@ async def add_subuser(obj, client_id: str, display_name: str, access: str, json:
     is_flag=True,
     default=False,
     type=bool,
-    help="Returned result as JSON",
+    help="Resultado retornado como JSON",
 )
 @click.pass_obj
 async def list_subuser(obj, client_id: str, json: bool):
