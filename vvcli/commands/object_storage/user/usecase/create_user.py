@@ -19,7 +19,7 @@ class CreateObjectStorageUserCommand(
     AbstractPrintableJSON,
 ):
     _printable_attributes = EnumObjectStoragePrintableAttributes
-    _table_headers = ["Cliente Id", "Contract Key", "Access Key", "Secret Key"]
+    _table_headers = ["Cliente Id", "Chave do Contrato", "Access Key", "Secret Key"]
 
     def __init__(
         self, client_id: str, size_quota: int, configuration: vvcli_sdk.Configuration

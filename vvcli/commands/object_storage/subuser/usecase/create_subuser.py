@@ -20,7 +20,7 @@ class CreateObjectStorageSubUserCommand(
     AbstractPrintableJSON,
 ):
     _printable_attributes = EnumObjectStoragePrintableAttributes
-    _table_headers = ["Display Name", "Cliente Id", "Access Key", "Secret Key"]
+    _table_headers = ["Nome de exibição", "Cliente Id", "Access Key", "Secret Key"]
 
     def __init__(
         self,

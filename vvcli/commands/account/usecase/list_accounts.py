@@ -11,7 +11,7 @@ from ...abstract import (
 class ListAccountsCommand(
     AbstractPrintException, AbstractPrintableTable, AbstractPrintableJSON
 ):
-    _table_headers = ["Account UUID", "Name", "Client ID", "Status"]
+    _table_headers = ["Account UUID", "Nome", "Cliente ID", "Status"]
 
     def __init__(self, configuration: vvcli_sdk.Configuration):
         self._configuration = configuration

@@ -1,10 +1,8 @@
 import asyncclick as click
 
 from .usecase import GetUserObjectStorageCommand
-from ..enum import EnumQuotaSize
-from .... import CliConfiguration
-
 from .usecase.create_user import CreateObjectStorageUserCommand
+from .... import CliConfiguration
 
 
 @click.group(name="user")

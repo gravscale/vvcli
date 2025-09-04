@@ -27,4 +27,4 @@ class ConfigureAuthenticateCommand(AbstractReadInputValue):
         await self._validate()
         self._cli_config.save_authorization(self._token)
         click.echo(f"\nHost: {self._cli_config.host}")
-        click.echo("Credential successfully saved!")
+        click.echo("Credencial salva com sucesso!")

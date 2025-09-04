@@ -19,7 +19,7 @@ class ListContractsCommand(
     AbstractPrintableJSON,
 ):
     _printable_attributes = EnumAccountPrintableAttributes
-    _table_headers = ["Key", "Surname", "Product Label", "Status"]
+    _table_headers = ["Key", "Apelido", "Produto Label", "Status"]
 
     def __init__(
         self,

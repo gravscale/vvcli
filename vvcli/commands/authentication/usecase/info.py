@@ -17,4 +17,4 @@ class AuthenticateInfoCommand(AbstractPrintException):
         except vvcli_sdk.exceptions.ApiException as exc:
             await self.print_exception(exc)
             return
-        click.echo(f"Authenticated user: {authenticated_user_info.email}")
+        click.echo(f"Usuário autenticado: {authenticated_user_info.email}")

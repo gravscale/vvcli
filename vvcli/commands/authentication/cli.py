@@ -10,13 +10,13 @@ async def authentication_group():
     pass
 
 
-@authentication_group.command("configure", help="Authenticate user by api token")
+@authentication_group.command("configure", help="Autenticar usuário por token de API")
 @click.option(
     "--config-file",
     "-c",
     type=click.Path(exists=True),
     default=None,
-    help="Configuration file",
+    help="Arquivo de configuração",
 )
 @click.option("--token", "-t", required=False, type=str, help="API token")
 @click.pass_obj
@@ -26,7 +26,7 @@ async def configure(obj, token: str, config_file: str):
 
 
 @authentication_group.command(
-    "info", help="Gets information from the user who is authenticated"
+    "info", help="Obtém informações do usuário que está autenticado"
 )
 @click.pass_obj
 async def auth_info(obj: dict):

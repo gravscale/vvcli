@@ -7,7 +7,7 @@ class EnumObjectStoragePrintableAttributes(str, Enum):
     PASSWORD = "Password"
     API_TOKEN = "Auth Token"
     ACCESS = "Access"
-    DISPLAY_NAME = "Display Name"
+    DISPLAY_NAME = "Nome de exibição"
     QUOTA = "Quota"
 
 

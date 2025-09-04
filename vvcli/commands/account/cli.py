@@ -29,9 +29,9 @@ async def list_accounts(obj, json: bool):
 
 @account_group.command("contracts")
 @click.option("--uuid", "-u", required=False, type=str, help="Account uuid")
-@click.option("--client-id", "-ci", required=False, type=str, help="Account client id")
-@click.option("--product", "-p", required=False, type=str, help="Contract product")
-@click.option("--key", "-k", required=False, type=str, help="Contract key")
+@click.option("--client-id", "-ci", required=False, type=str, help="Account cliente id")
+@click.option("--product", "-p", required=False, type=str, help="Produto")
+@click.option("--key", "-k", required=False, type=str, help="Chave do contrato")
 @click.option(
     "--json",
     "-j",

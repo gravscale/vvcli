@@ -17,7 +17,7 @@ class GetSubUserObjectStorageCommand(
     AbstractPrintableJSON,
 ):
     _printable_attributes = EnumObjectStoragePrintableAttributes
-    _table_headers = ["Client Id", "Display Name"]
+    _table_headers = ["Client Id", "Nome de exibição"]
 
     def __init__(self, client_id: str, configuration: vvcli_sdk.Configuration):
         self._configuration = configuration
