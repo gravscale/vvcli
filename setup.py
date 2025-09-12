@@ -32,6 +32,7 @@ REQUIRES = [
     "asyncclick",
     "toml",
     "python-decouple",
+    "pint",
 ]
 
 setup(

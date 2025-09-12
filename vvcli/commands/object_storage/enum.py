@@ -9,6 +9,7 @@ class EnumObjectStoragePrintableAttributes(str, Enum):
     ACCESS = "Access"
     DISPLAY_NAME = "Nome de exibição"
     QUOTA = "Quota"
+    NAME = "Nome"
 
 
 class EnumQuotaSize(int, Enum):
@@ -21,4 +22,3 @@ class EnumQuotaSize(int, Enum):
     SIZE_800GB = 800
     SIZE_900GB = 900
     SIZE_1000GB = 1000
-

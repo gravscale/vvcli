@@ -19,12 +19,19 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictInt, StrictStr
 from typing import Optional
 from typing_extensions import Annotated
+from vvcli_sdk.models.create_bucket_obj_storage_schema import (
+    CreateBucketObjStorageSchema,
+)
 from vvcli_sdk.models.create_sub_user_obj_storage_schema import (
     CreateSubUserObjStorageSchema,
 )
+from vvcli_sdk.models.get_bucket_obj_storage_schema import GetBucketObjStorageSchema
 from vvcli_sdk.models.get_user_obj_storage_schema import GetUserObjStorageSchema
 from vvcli_sdk.models.new_sub_user_obj_storage_schema import NewSubUserObjStorageSchema
 from vvcli_sdk.models.new_user_obj_storage_schema import NewUserObjStorageSchema
+from vvcli_sdk.models.page_get_bucket_obj_storage_schema import (
+    PageGetBucketObjStorageSchema,
+)
 from vvcli_sdk.models.page_get_sub_user_obj_storage_schema import (
     PageGetSubUserObjStorageSchema,
 )
@@ -47,9 +54,281 @@ class ObjectStorageApi:
         self.api_client = api_client
 
     @validate_call
+    def create_bucket(
+        self,
+        client_id: StrictInt,
+        create_bucket_obj_storage_schema: CreateBucketObjStorageSchema,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> GetBucketObjStorageSchema:
+        """Create Bucket Object Storage
+
+        **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new bucket storage to a specific account. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id.  ### 📥 Request Body The request body must be a JSON object with the following properties: - `bucket_name` (string): Bucket name. - `quota`:     - `maxSizeMb` (integer): Maximum bucket storage size in MB.     - `maxObjects` (integer): Maximum quantity of items in the bucket.
+
+        :param client_id: (required)
+        :type client_id: int
+        :param create_bucket_obj_storage_schema: (required)
+        :type create_bucket_obj_storage_schema: CreateBucketObjStorageSchema
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """  # noqa: E501
+
+        _param = self._create_bucket_serialize(
+            client_id=client_id,
+            create_bucket_obj_storage_schema=create_bucket_obj_storage_schema,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            "201": "GetBucketObjStorageSchema",
+            "422": "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param, _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+    @validate_call
+    def create_bucket_with_http_info(
+        self,
+        client_id: StrictInt,
+        create_bucket_obj_storage_schema: CreateBucketObjStorageSchema,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GetBucketObjStorageSchema]:
+        """Create Bucket Object Storage
+
+        **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new bucket storage to a specific account. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id.  ### 📥 Request Body The request body must be a JSON object with the following properties: - `bucket_name` (string): Bucket name. - `quota`:     - `maxSizeMb` (integer): Maximum bucket storage size in MB.     - `maxObjects` (integer): Maximum quantity of items in the bucket.
+
+        :param client_id: (required)
+        :type client_id: int
+        :param create_bucket_obj_storage_schema: (required)
+        :type create_bucket_obj_storage_schema: CreateBucketObjStorageSchema
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """  # noqa: E501
+
+        _param = self._create_bucket_serialize(
+            client_id=client_id,
+            create_bucket_obj_storage_schema=create_bucket_obj_storage_schema,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            "201": "GetBucketObjStorageSchema",
+            "422": "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param, _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+    @validate_call
+    def create_bucket_without_preload_content(
+        self,
+        client_id: StrictInt,
+        create_bucket_obj_storage_schema: CreateBucketObjStorageSchema,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Create Bucket Object Storage
+
+        **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new bucket storage to a specific account. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id.  ### 📥 Request Body The request body must be a JSON object with the following properties: - `bucket_name` (string): Bucket name. - `quota`:     - `maxSizeMb` (integer): Maximum bucket storage size in MB.     - `maxObjects` (integer): Maximum quantity of items in the bucket.
+
+        :param client_id: (required)
+        :type client_id: int
+        :param create_bucket_obj_storage_schema: (required)
+        :type create_bucket_obj_storage_schema: CreateBucketObjStorageSchema
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """  # noqa: E501
+
+        _param = self._create_bucket_serialize(
+            client_id=client_id,
+            create_bucket_obj_storage_schema=create_bucket_obj_storage_schema,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            "201": "GetBucketObjStorageSchema",
+            "422": "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param, _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+    def _create_bucket_serialize(
+        self,
+        client_id,
+        create_bucket_obj_storage_schema,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {}
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if client_id is not None:
+
+            _query_params.append(("client_id", client_id))
+
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if create_bucket_obj_storage_schema is not None:
+            _body_params = create_bucket_obj_storage_schema
+
+        # set the HTTP header `Accept`
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
+                ["application/json"]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params["Content-Type"] = _content_type
+        else:
+            _default_content_type = self.api_client.select_header_content_type(
+                ["application/json"]
+            )
+            if _default_content_type is not None:
+                _header_params["Content-Type"] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = ["HTTPBearer"]
+
+        return self.api_client.param_serialize(
+            method="POST",
+            resource_path="/object-storage/bucket",
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth,
+        )
+
+    @validate_call
     def create_client_user(
         self,
-        client_id: StrictStr,
+        client_id: StrictInt,
         size_quota: StrictInt,
         _request_timeout: Union[
             None,
@@ -65,10 +344,10 @@ class ObjectStorageApi:
     ) -> NewUserObjStorageSchema:
         """Create Client User Object Storage
 
-        Temporarily disabled.      **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new Object Storage user associated with a specific account. Generates unique access credentials for integration with cloud storage services. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id. - `size_quota` (integer): User quota in gigabyte (GB). The value must be between 10 GB and 1000 GB.
+        **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new Object Storage user associated with a specific account. Generates unique access credentials for integration with cloud storage services. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id. - `size_quota` (integer): User quota in gigabyte (GB). The value must be between 100 GB and 50000 GB.
 
         :param client_id: (required)
-        :type client_id: str
+        :type client_id: int
         :param size_quota: (required)
         :type size_quota: int
         :param _request_timeout: timeout setting for this request. If one
@@ -118,7 +397,7 @@ class ObjectStorageApi:
     @validate_call
     def create_client_user_with_http_info(
         self,
-        client_id: StrictStr,
+        client_id: StrictInt,
         size_quota: StrictInt,
         _request_timeout: Union[
             None,
@@ -134,10 +413,10 @@ class ObjectStorageApi:
     ) -> ApiResponse[NewUserObjStorageSchema]:
         """Create Client User Object Storage
 
-        Temporarily disabled.      **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new Object Storage user associated with a specific account. Generates unique access credentials for integration with cloud storage services. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id. - `size_quota` (integer): User quota in gigabyte (GB). The value must be between 10 GB and 1000 GB.
+        **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new Object Storage user associated with a specific account. Generates unique access credentials for integration with cloud storage services. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id. - `size_quota` (integer): User quota in gigabyte (GB). The value must be between 100 GB and 50000 GB.
 
         :param client_id: (required)
-        :type client_id: str
+        :type client_id: int
         :param size_quota: (required)
         :type size_quota: int
         :param _request_timeout: timeout setting for this request. If one
@@ -187,7 +466,7 @@ class ObjectStorageApi:
     @validate_call
     def create_client_user_without_preload_content(
         self,
-        client_id: StrictStr,
+        client_id: StrictInt,
         size_quota: StrictInt,
         _request_timeout: Union[
             None,
@@ -203,10 +482,10 @@ class ObjectStorageApi:
     ) -> RESTResponseType:
         """Create Client User Object Storage
 
-        Temporarily disabled.      **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new Object Storage user associated with a specific account. Generates unique access credentials for integration with cloud storage services. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id. - `size_quota` (integer): User quota in gigabyte (GB). The value must be between 10 GB and 1000 GB.
+        **Authentication:** Bearer Token (JWT)   ### 📝 Description Creates a new Object Storage user associated with a specific account. Generates unique access credentials for integration with cloud storage services. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id. - `size_quota` (integer): User quota in gigabyte (GB). The value must be between 100 GB and 50000 GB.
 
         :param client_id: (required)
-        :type client_id: str
+        :type client_id: int
         :param size_quota: (required)
         :type size_quota: int
         :param _request_timeout: timeout setting for this request. If one
@@ -566,9 +845,273 @@ class ObjectStorageApi:
         )
 
     @validate_call
+    def delete_bucket(
+        self,
+        client_id: StrictInt,
+        bucket_name: StrictStr,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> None:
+        """Delete Bucket Object Storage
+
+        **Authentication:** Bearer Token (JWT)   ### 📝 Description Delete a bucket storage from a specific account. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id. - `bucket_name` (string): Bucket name.
+
+        :param client_id: (required)
+        :type client_id: int
+        :param bucket_name: (required)
+        :type bucket_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """  # noqa: E501
+
+        _param = self._delete_bucket_serialize(
+            client_id=client_id,
+            bucket_name=bucket_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            "204": None,
+            "422": "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param, _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+    @validate_call
+    def delete_bucket_with_http_info(
+        self,
+        client_id: StrictInt,
+        bucket_name: StrictStr,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[None]:
+        """Delete Bucket Object Storage
+
+        **Authentication:** Bearer Token (JWT)   ### 📝 Description Delete a bucket storage from a specific account. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id. - `bucket_name` (string): Bucket name.
+
+        :param client_id: (required)
+        :type client_id: int
+        :param bucket_name: (required)
+        :type bucket_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """  # noqa: E501
+
+        _param = self._delete_bucket_serialize(
+            client_id=client_id,
+            bucket_name=bucket_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            "204": None,
+            "422": "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param, _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+    @validate_call
+    def delete_bucket_without_preload_content(
+        self,
+        client_id: StrictInt,
+        bucket_name: StrictStr,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Delete Bucket Object Storage
+
+        **Authentication:** Bearer Token (JWT)   ### 📝 Description Delete a bucket storage from a specific account. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id. - `bucket_name` (string): Bucket name.
+
+        :param client_id: (required)
+        :type client_id: int
+        :param bucket_name: (required)
+        :type bucket_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """  # noqa: E501
+
+        _param = self._delete_bucket_serialize(
+            client_id=client_id,
+            bucket_name=bucket_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            "204": None,
+            "422": "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param, _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+    def _delete_bucket_serialize(
+        self,
+        client_id,
+        bucket_name,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {}
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if client_id is not None:
+
+            _query_params.append(("client_id", client_id))
+
+        if bucket_name is not None:
+
+            _query_params.append(("bucket_name", bucket_name))
+
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+        # set the HTTP header `Accept`
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
+                ["application/json"]
+            )
+
+        # authentication setting
+        _auth_settings: List[str] = ["HTTPBearer"]
+
+        return self.api_client.param_serialize(
+            method="DELETE",
+            resource_path="/object-storage/bucket",
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth,
+        )
+
+    @validate_call
     def get_client_user(
         self,
-        client_id: StrictStr,
+        client_id: StrictInt,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -586,7 +1129,7 @@ class ObjectStorageApi:
         **Authentication:** Bearer Token (JWT)   ### 📝 Description Returns existing Object Storage user associated with a specific account. Provides access to active integration information. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id.
 
         :param client_id: (required)
-        :type client_id: str
+        :type client_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -633,7 +1176,7 @@ class ObjectStorageApi:
     @validate_call
     def get_client_user_with_http_info(
         self,
-        client_id: StrictStr,
+        client_id: StrictInt,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -651,7 +1194,7 @@ class ObjectStorageApi:
         **Authentication:** Bearer Token (JWT)   ### 📝 Description Returns existing Object Storage user associated with a specific account. Provides access to active integration information. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id.
 
         :param client_id: (required)
-        :type client_id: str
+        :type client_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -698,7 +1241,7 @@ class ObjectStorageApi:
     @validate_call
     def get_client_user_without_preload_content(
         self,
-        client_id: StrictStr,
+        client_id: StrictInt,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -716,7 +1259,7 @@ class ObjectStorageApi:
         **Authentication:** Bearer Token (JWT)   ### 📝 Description Returns existing Object Storage user associated with a specific account. Provides access to active integration information. ### 🔗 Parameters (Query) - `client_id` (integer): Account client id.
 
         :param client_id: (required)
-        :type client_id: str
+        :type client_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1099,6 +1642,305 @@ class ObjectStorageApi:
         return self.api_client.param_serialize(
             method="GET",
             resource_path="/object-storage/subuser",
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth,
+        )
+
+    @validate_call
+    def list_buckets(
+        self,
+        client_id: StrictInt,
+        page: Annotated[
+            Optional[Annotated[int, Field(strict=True, ge=1)]],
+            Field(description="Page number"),
+        ] = None,
+        size: Annotated[
+            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
+            Field(description="Page size"),
+        ] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> PageGetBucketObjStorageSchema:
+        """List Buckets Object Storage
+
+        **Authentication:** Bearer Token (JWT)   ### 📝 Description Lists all storage buckets registered to a specific account.  ### 🔗 Parameters (Query) - `client_id` (integer): Account client id.
+
+        :param client_id: (required)
+        :type client_id: int
+        :param page: Page number
+        :type page: int
+        :param size: Page size
+        :type size: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """  # noqa: E501
+
+        _param = self._list_buckets_serialize(
+            client_id=client_id,
+            page=page,
+            size=size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            "200": "PageGetBucketObjStorageSchema",
+            "422": "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param, _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+    @validate_call
+    def list_buckets_with_http_info(
+        self,
+        client_id: StrictInt,
+        page: Annotated[
+            Optional[Annotated[int, Field(strict=True, ge=1)]],
+            Field(description="Page number"),
+        ] = None,
+        size: Annotated[
+            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
+            Field(description="Page size"),
+        ] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[PageGetBucketObjStorageSchema]:
+        """List Buckets Object Storage
+
+        **Authentication:** Bearer Token (JWT)   ### 📝 Description Lists all storage buckets registered to a specific account.  ### 🔗 Parameters (Query) - `client_id` (integer): Account client id.
+
+        :param client_id: (required)
+        :type client_id: int
+        :param page: Page number
+        :type page: int
+        :param size: Page size
+        :type size: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """  # noqa: E501
+
+        _param = self._list_buckets_serialize(
+            client_id=client_id,
+            page=page,
+            size=size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            "200": "PageGetBucketObjStorageSchema",
+            "422": "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param, _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+    @validate_call
+    def list_buckets_without_preload_content(
+        self,
+        client_id: StrictInt,
+        page: Annotated[
+            Optional[Annotated[int, Field(strict=True, ge=1)]],
+            Field(description="Page number"),
+        ] = None,
+        size: Annotated[
+            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
+            Field(description="Page size"),
+        ] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List Buckets Object Storage
+
+        **Authentication:** Bearer Token (JWT)   ### 📝 Description Lists all storage buckets registered to a specific account.  ### 🔗 Parameters (Query) - `client_id` (integer): Account client id.
+
+        :param client_id: (required)
+        :type client_id: int
+        :param page: Page number
+        :type page: int
+        :param size: Page size
+        :type size: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """  # noqa: E501
+
+        _param = self._list_buckets_serialize(
+            client_id=client_id,
+            page=page,
+            size=size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            "200": "PageGetBucketObjStorageSchema",
+            "422": "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param, _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+    def _list_buckets_serialize(
+        self,
+        client_id,
+        page,
+        size,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {}
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if client_id is not None:
+
+            _query_params.append(("client_id", client_id))
+
+        if page is not None:
+
+            _query_params.append(("page", page))
+
+        if size is not None:
+
+            _query_params.append(("size", size))
+
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+        # set the HTTP header `Accept`
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
+                ["application/json"]
+            )
+
+        # authentication setting
+        _auth_settings: List[str] = ["HTTPBearer"]
+
+        return self.api_client.param_serialize(
+            method="GET",
+            resource_path="/object-storage/bucket",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

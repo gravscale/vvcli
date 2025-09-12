@@ -11,31 +11,40 @@ from ....abstract import (
 from ....utils import format_storage_size
 
 
-class GetUserObjectStorageCommand(
+class ListObjectStorageBucketsCommand(
     AbstractPrintException,
     AbstractPrintableTable,
     AbstractReadInputValue,
     AbstractPrintableJSON,
 ):
     _printable_attributes = EnumObjectStoragePrintableAttributes
-    _table_headers = ["Client Id", "Chave do Contrato", "Quota", "Uso"]
+    _table_headers = ["Nome", "Quota", "Uso", "Criado em"]
 
-    def __init__(self, client_id: int, configuration: vvcli_sdk.Configuration):
+    def __init__(
+        self,
+        client_id: int,
+        configuration: vvcli_sdk.Configuration,
+    ):
         self._configuration = configuration
         self._client_id = client_id
 
-    async def _gen_table_rows(self, obj_users: List[dict]):
-        obj_users_info = []
-        for obj_u in obj_users:
-            obj_users_info.append(
+    async def _gen_table_rows(self, list_obj: List[dict]):
+        info = []
+        for obj_u in list_obj:
+            quota = obj_u["quota"]
+            info.append(
                 (
-                    obj_u["clientId"],
-                    obj_u["contractKey"],
-                    format_storage_size(obj_u["quota"]["maxSizeBytes"]),
-                    format_storage_size(obj_u["usage"]["sizeBytes"]),
+                    obj_u["name"],
+                    (
+                        format_storage_size(quota["maxSizeBytes"])
+                        if quota["enabled"]
+                        else "Não habilitada"
+                    ),
+                    format_storage_size(obj_u["usage"]["sizeUtilizedBytes"]),
+                    obj_u["createdAt"].strftime("%d/%m/%Y %H:%M"),
                 )
             )
-        return obj_users_info
+        return info
 
     async def _validate(self):
 
@@ -45,20 +54,19 @@ class GetUserObjectStorageCommand(
 
     async def execute(self, return_json=False):
         await self._validate()
-
         try:
             with vvcli_sdk.ApiClient(self._configuration) as api_client:
                 api_instance = vvcli_sdk.ObjectStorageApi(api_client)
-                obj_user = api_instance.get_client_user(self._client_id)
+                buckets = api_instance.list_buckets(self._client_id)
         except vvcli_sdk.exceptions.ApiException as exc:
             await self.print_exception(exc)
             return
 
         if return_json:
-            await self._echo_json(obj_user.to_dict())
+            await self._echo_json(buckets.to_dict().get("items"))
             return
 
-        obj_user_info = await self._gen_table_rows([obj_user.to_dict()])
+        obj_user_info = await self._gen_table_rows(buckets.to_dict().get("items"))
         column_widths = await self._calculate_columns_width(
             self._table_headers, obj_user_info
         )

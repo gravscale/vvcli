@@ -17,24 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from vvcli_sdk.models.user_quota_obj_storage_schema import UserQuotaObjStorageSchema
-from vvcli_sdk.models.user_usage_obj_storage_schema import UserUsageObjStorageSchema
+from vvcli_sdk.models.get_bucket_quota_schema import GetBucketQuotaSchema
+from vvcli_sdk.models.get_bucket_usage_schema import GetBucketUsageSchema
 from typing import Optional, Set
 from typing_extensions import Self
 
 
-class GetUserObjStorageSchema(BaseModel):
+class GetBucketObjStorageSchema(BaseModel):
     """
-    GetUserObjStorageSchema
+    GetBucketObjStorageSchema
     """  # noqa: E501
 
-    client_id: StrictStr = Field(alias="clientId")
-    contract_key: StrictStr = Field(alias="contractKey")
-    quota: Optional[UserQuotaObjStorageSchema] = None
-    usage: Optional[UserUsageObjStorageSchema] = None
-    __properties: ClassVar[List[str]] = ["clientId", "contractKey", "quota", "usage"]
+    name: StrictStr
+    usage: Optional[GetBucketUsageSchema] = None
+    quota: Optional[GetBucketQuotaSchema] = None
+    created_at: datetime = Field(alias="createdAt")
+    __properties: ClassVar[List[str]] = ["name", "usage", "quota", "createdAt"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -53,7 +54,7 @@ class GetUserObjStorageSchema(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of GetUserObjStorageSchema from a JSON string"""
+        """Create an instance of GetBucketObjStorageSchema from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,27 +74,27 @@ class GetUserObjStorageSchema(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of quota
-        if self.quota:
-            _dict["quota"] = self.quota.to_dict()
         # override the default output from pydantic by calling `to_dict()` of usage
         if self.usage:
             _dict["usage"] = self.usage.to_dict()
-        # set to None if quota (nullable) is None
-        # and model_fields_set contains the field
-        if self.quota is None and "quota" in self.model_fields_set:
-            _dict["quota"] = None
-
+        # override the default output from pydantic by calling `to_dict()` of quota
+        if self.quota:
+            _dict["quota"] = self.quota.to_dict()
         # set to None if usage (nullable) is None
         # and model_fields_set contains the field
         if self.usage is None and "usage" in self.model_fields_set:
             _dict["usage"] = None
 
+        # set to None if quota (nullable) is None
+        # and model_fields_set contains the field
+        if self.quota is None and "quota" in self.model_fields_set:
+            _dict["quota"] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of GetUserObjStorageSchema from a dict"""
+        """Create an instance of GetBucketObjStorageSchema from a dict"""
         if obj is None:
             return None
 
@@ -102,18 +103,18 @@ class GetUserObjStorageSchema(BaseModel):
 
         _obj = cls.model_validate(
             {
-                "clientId": obj.get("clientId"),
-                "contractKey": obj.get("contractKey"),
-                "quota": (
-                    UserQuotaObjStorageSchema.from_dict(obj["quota"])
-                    if obj.get("quota") is not None
-                    else None
-                ),
+                "name": obj.get("name"),
                 "usage": (
-                    UserUsageObjStorageSchema.from_dict(obj["usage"])
+                    GetBucketUsageSchema.from_dict(obj["usage"])
                     if obj.get("usage") is not None
                     else None
                 ),
+                "quota": (
+                    GetBucketQuotaSchema.from_dict(obj["quota"])
+                    if obj.get("quota") is not None
+                    else None
+                ),
+                "createdAt": obj.get("createdAt"),
             }
         )
         return _obj

@@ -1,6 +1,6 @@
 # vvcli_sdk.AccountApi
 
-All URIs are relative to *http://under-dev-services.gravmanage.com/dev/public-api/public*
+All URIs are relative to *https://api.under.com.br/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -26,10 +26,10 @@ from vvcli_sdk.models.account_schema import AccountSchema
 from vvcli_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://under-dev-services.gravmanage.com/dev/public-api/public
+# Defining the host is optional and defaults to https://api.under.com.br/v1
 # See configuration.py for a list of all supported configuration parameters.
 configuration = vvcli_sdk.Configuration(
-    host = "http://under-dev-services.gravmanage.com/dev/public-api/public"
+    host = "https://api.under.com.br/v1"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -107,10 +107,10 @@ from vvcli_sdk.models.page_account_schema import PageAccountSchema
 from vvcli_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://under-dev-services.gravmanage.com/dev/public-api/public
+# Defining the host is optional and defaults to https://api.under.com.br/v1
 # See configuration.py for a list of all supported configuration parameters.
 configuration = vvcli_sdk.Configuration(
-    host = "http://under-dev-services.gravmanage.com/dev/public-api/public"
+    host = "https://api.under.com.br/v1"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -188,10 +188,10 @@ from vvcli_sdk.models.page_contract_schema import PageContractSchema
 from vvcli_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://under-dev-services.gravmanage.com/dev/public-api/public
+# Defining the host is optional and defaults to https://api.under.com.br/v1
 # See configuration.py for a list of all supported configuration parameters.
 configuration = vvcli_sdk.Configuration(
-    host = "http://under-dev-services.gravmanage.com/dev/public-api/public"
+    host = "https://api.under.com.br/v1"
 )
 
 # The client must configure the authentication and authorization parameters

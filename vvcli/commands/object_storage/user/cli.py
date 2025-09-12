@@ -29,14 +29,16 @@ async def obj_user_group():
     help="Resultado retornado como JSON",
 )
 @click.pass_obj
-async def add_user(obj, client_id: str, size_quota: int, json: bool):
+async def add_user(obj, client_id: int, size_quota: int, json: bool):
     cli_config: CliConfiguration = obj["config"]
     await CreateObjectStorageUserCommand(
         client_id, size_quota, cli_config.load_sdk_configuration()
     ).execute(json)
 
 
-@obj_user_group.command("get", help="Obter usuário cliente para armazenamento de objetos")
+@obj_user_group.command(
+    "get", help="Obter usuário cliente para armazenamento de objetos"
+)
 @click.option("--client-id", "-c", required=False, type=str, help="Client ID")
 @click.option(
     "--json",
@@ -47,7 +49,7 @@ async def add_user(obj, client_id: str, size_quota: int, json: bool):
     help="Resultado retornado como JSON",
 )
 @click.pass_obj
-async def get_user(obj, client_id: str, json: bool):
+async def get_user(obj, client_id: int, json: bool):
     cli_config: CliConfiguration = obj["config"]
     await GetUserObjectStorageCommand(
         client_id, cli_config.load_sdk_configuration()

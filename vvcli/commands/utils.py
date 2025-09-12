@@ -1,3 +1,14 @@
+from pint import UnitRegistry
+
+
+def format_storage_size(bytes_value: int) -> str:
+    """Converte bytes para a unidade mais adequada de forma automática"""
+    quantity = bytes_value * UnitRegistry().byte
+    compact = quantity.to_compact()
+
+    return f"{compact.magnitude:.2f} {compact.units:~}"
+
+
 async def get_columns_size(headers: list[str], rows: list[tuple]) -> dict:
     dict_i = {}
     for item in rows:

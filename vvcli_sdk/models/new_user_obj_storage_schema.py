@@ -20,6 +20,8 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from vvcli_sdk.models.credential_key import CredentialKey
+from vvcli_sdk.models.user_quota_obj_storage_schema import UserQuotaObjStorageSchema
+from vvcli_sdk.models.user_usage_obj_storage_schema import UserUsageObjStorageSchema
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -31,8 +33,16 @@ class NewUserObjStorageSchema(BaseModel):
 
     client_id: StrictStr = Field(alias="clientId")
     contract_key: StrictStr = Field(alias="contractKey")
+    quota: Optional[UserQuotaObjStorageSchema] = None
+    usage: Optional[UserUsageObjStorageSchema] = None
     keys: Optional[List[CredentialKey]] = None
-    __properties: ClassVar[List[str]] = ["clientId", "contractKey", "keys"]
+    __properties: ClassVar[List[str]] = [
+        "clientId",
+        "contractKey",
+        "quota",
+        "usage",
+        "keys",
+    ]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -71,6 +81,12 @@ class NewUserObjStorageSchema(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of quota
+        if self.quota:
+            _dict["quota"] = self.quota.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of usage
+        if self.usage:
+            _dict["usage"] = self.usage.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in keys (list)
         _items = []
         if self.keys:
@@ -78,6 +94,16 @@ class NewUserObjStorageSchema(BaseModel):
                 if _item_keys:
                     _items.append(_item_keys.to_dict())
             _dict["keys"] = _items
+        # set to None if quota (nullable) is None
+        # and model_fields_set contains the field
+        if self.quota is None and "quota" in self.model_fields_set:
+            _dict["quota"] = None
+
+        # set to None if usage (nullable) is None
+        # and model_fields_set contains the field
+        if self.usage is None and "usage" in self.model_fields_set:
+            _dict["usage"] = None
+
         # set to None if keys (nullable) is None
         # and model_fields_set contains the field
         if self.keys is None and "keys" in self.model_fields_set:
@@ -98,6 +124,16 @@ class NewUserObjStorageSchema(BaseModel):
             {
                 "clientId": obj.get("clientId"),
                 "contractKey": obj.get("contractKey"),
+                "quota": (
+                    UserQuotaObjStorageSchema.from_dict(obj["quota"])
+                    if obj.get("quota") is not None
+                    else None
+                ),
+                "usage": (
+                    UserUsageObjStorageSchema.from_dict(obj["usage"])
+                    if obj.get("usage") is not None
+                    else None
+                ),
                 "keys": (
                     [CredentialKey.from_dict(_item) for _item in obj["keys"]]
                     if obj.get("keys") is not None

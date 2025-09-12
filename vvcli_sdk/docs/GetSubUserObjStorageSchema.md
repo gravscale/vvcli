@@ -5,9 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**user_srn** | **str** |  | 
-**display_name** | **str** |  | 
 **client_id** | **str** |  | 
+**display_name** | **str** |  | 
 
 ## Example
 

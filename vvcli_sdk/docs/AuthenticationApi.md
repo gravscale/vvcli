@@ -1,6 +1,6 @@
 # vvcli_sdk.AuthenticationApi
 
-All URIs are relative to *http://under-dev-services.gravmanage.com/dev/public-api/public*
+All URIs are relative to *http://under-dev-services.gravmanage.com/dev/public-api/public/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -24,10 +24,10 @@ from vvcli_sdk.models.auth_info_schema import AuthInfoSchema
 from vvcli_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://under-dev-services.gravmanage.com/dev/public-api/public
+# Defining the host is optional and defaults to http://under-dev-services.gravmanage.com/dev/public-api/public/api/v1
 # See configuration.py for a list of all supported configuration parameters.
 configuration = vvcli_sdk.Configuration(
-    host = "http://under-dev-services.gravmanage.com/dev/public-api/public"
+    host = "http://under-dev-services.gravmanage.com/dev/public-api/public/api/v1"
 )
 
 # The client must configure the authentication and authorization parameters

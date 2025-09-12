@@ -5,9 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**user_srn** | **str** |  | 
-**contract_key** | **str** |  | 
 **client_id** | **str** |  | 
+**contract_key** | **str** |  | 
+**quota** | [**UserQuotaObjStorageSchema**](UserQuotaObjStorageSchema.md) |  | [optional] 
+**usage** | [**UserUsageObjStorageSchema**](UserUsageObjStorageSchema.md) |  | [optional] 
 
 ## Example
 

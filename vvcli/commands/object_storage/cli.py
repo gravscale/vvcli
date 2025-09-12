@@ -2,6 +2,7 @@ import asyncclick as click
 
 from .user.cli import obj_user_group
 from .subuser.cli import obj_subuser_group
+from .bucket.cli import obj_bucket_group
 
 
 @click.group(name="obj")
@@ -12,3 +13,4 @@ async def obj_storage_group():
 
 obj_storage_group.add_command(obj_user_group)
 obj_storage_group.add_command(obj_subuser_group)
+obj_storage_group.add_command(obj_bucket_group)

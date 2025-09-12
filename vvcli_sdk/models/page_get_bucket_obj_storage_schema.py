@@ -17,24 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
-from vvcli_sdk.models.user_quota_obj_storage_schema import UserQuotaObjStorageSchema
-from vvcli_sdk.models.user_usage_obj_storage_schema import UserUsageObjStorageSchema
+from typing_extensions import Annotated
+from vvcli_sdk.models.get_bucket_obj_storage_schema import GetBucketObjStorageSchema
 from typing import Optional, Set
 from typing_extensions import Self
 
 
-class GetUserObjStorageSchema(BaseModel):
+class PageGetBucketObjStorageSchema(BaseModel):
     """
-    GetUserObjStorageSchema
+    PageGetBucketObjStorageSchema
     """  # noqa: E501
 
-    client_id: StrictStr = Field(alias="clientId")
-    contract_key: StrictStr = Field(alias="contractKey")
-    quota: Optional[UserQuotaObjStorageSchema] = None
-    usage: Optional[UserUsageObjStorageSchema] = None
-    __properties: ClassVar[List[str]] = ["clientId", "contractKey", "quota", "usage"]
+    items: List[GetBucketObjStorageSchema]
+    total: Optional[Annotated[int, Field(strict=True, ge=0)]] = None
+    page: Optional[Annotated[int, Field(strict=True, ge=1)]]
+    size: Optional[Annotated[int, Field(strict=True, ge=1)]]
+    pages: Optional[Annotated[int, Field(strict=True, ge=0)]] = None
+    __properties: ClassVar[List[str]] = ["items", "total", "page", "size", "pages"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -53,7 +54,7 @@ class GetUserObjStorageSchema(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of GetUserObjStorageSchema from a JSON string"""
+        """Create an instance of PageGetBucketObjStorageSchema from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,27 +74,38 @@ class GetUserObjStorageSchema(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of quota
-        if self.quota:
-            _dict["quota"] = self.quota.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of usage
-        if self.usage:
-            _dict["usage"] = self.usage.to_dict()
-        # set to None if quota (nullable) is None
+        # override the default output from pydantic by calling `to_dict()` of each item in items (list)
+        _items = []
+        if self.items:
+            for _item_items in self.items:
+                if _item_items:
+                    _items.append(_item_items.to_dict())
+            _dict["items"] = _items
+        # set to None if total (nullable) is None
         # and model_fields_set contains the field
-        if self.quota is None and "quota" in self.model_fields_set:
-            _dict["quota"] = None
+        if self.total is None and "total" in self.model_fields_set:
+            _dict["total"] = None
 
-        # set to None if usage (nullable) is None
+        # set to None if page (nullable) is None
         # and model_fields_set contains the field
-        if self.usage is None and "usage" in self.model_fields_set:
-            _dict["usage"] = None
+        if self.page is None and "page" in self.model_fields_set:
+            _dict["page"] = None
+
+        # set to None if size (nullable) is None
+        # and model_fields_set contains the field
+        if self.size is None and "size" in self.model_fields_set:
+            _dict["size"] = None
+
+        # set to None if pages (nullable) is None
+        # and model_fields_set contains the field
+        if self.pages is None and "pages" in self.model_fields_set:
+            _dict["pages"] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of GetUserObjStorageSchema from a dict"""
+        """Create an instance of PageGetBucketObjStorageSchema from a dict"""
         if obj is None:
             return None
 
@@ -102,18 +114,18 @@ class GetUserObjStorageSchema(BaseModel):
 
         _obj = cls.model_validate(
             {
-                "clientId": obj.get("clientId"),
-                "contractKey": obj.get("contractKey"),
-                "quota": (
-                    UserQuotaObjStorageSchema.from_dict(obj["quota"])
-                    if obj.get("quota") is not None
+                "items": (
+                    [
+                        GetBucketObjStorageSchema.from_dict(_item)
+                        for _item in obj["items"]
+                    ]
+                    if obj.get("items") is not None
                     else None
                 ),
-                "usage": (
-                    UserUsageObjStorageSchema.from_dict(obj["usage"])
-                    if obj.get("usage") is not None
-                    else None
-                ),
+                "total": obj.get("total"),
+                "page": obj.get("page"),
+                "size": obj.get("size"),
+                "pages": obj.get("pages"),
             }
         )
         return _obj

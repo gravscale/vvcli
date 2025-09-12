@@ -17,24 +17,22 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
-from vvcli_sdk.models.user_quota_obj_storage_schema import UserQuotaObjStorageSchema
-from vvcli_sdk.models.user_usage_obj_storage_schema import UserUsageObjStorageSchema
 from typing import Optional, Set
 from typing_extensions import Self
 
 
-class GetUserObjStorageSchema(BaseModel):
+class GetBucketUsageSchema(BaseModel):
     """
-    GetUserObjStorageSchema
+    GetBucketUsageSchema
     """  # noqa: E501
 
-    client_id: StrictStr = Field(alias="clientId")
-    contract_key: StrictStr = Field(alias="contractKey")
-    quota: Optional[UserQuotaObjStorageSchema] = None
-    usage: Optional[UserUsageObjStorageSchema] = None
-    __properties: ClassVar[List[str]] = ["clientId", "contractKey", "quota", "usage"]
+    size_utilized_bytes: Optional[StrictInt] = Field(
+        default=None, alias="sizeUtilizedBytes"
+    )
+    num_objects: Optional[StrictInt] = Field(default=None, alias="numObjects")
+    __properties: ClassVar[List[str]] = ["sizeUtilizedBytes", "numObjects"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -53,7 +51,7 @@ class GetUserObjStorageSchema(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of GetUserObjStorageSchema from a JSON string"""
+        """Create an instance of GetBucketUsageSchema from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,27 +71,24 @@ class GetUserObjStorageSchema(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of quota
-        if self.quota:
-            _dict["quota"] = self.quota.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of usage
-        if self.usage:
-            _dict["usage"] = self.usage.to_dict()
-        # set to None if quota (nullable) is None
+        # set to None if size_utilized_bytes (nullable) is None
         # and model_fields_set contains the field
-        if self.quota is None and "quota" in self.model_fields_set:
-            _dict["quota"] = None
+        if (
+            self.size_utilized_bytes is None
+            and "size_utilized_bytes" in self.model_fields_set
+        ):
+            _dict["sizeUtilizedBytes"] = None
 
-        # set to None if usage (nullable) is None
+        # set to None if num_objects (nullable) is None
         # and model_fields_set contains the field
-        if self.usage is None and "usage" in self.model_fields_set:
-            _dict["usage"] = None
+        if self.num_objects is None and "num_objects" in self.model_fields_set:
+            _dict["numObjects"] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of GetUserObjStorageSchema from a dict"""
+        """Create an instance of GetBucketUsageSchema from a dict"""
         if obj is None:
             return None
 
@@ -102,18 +97,8 @@ class GetUserObjStorageSchema(BaseModel):
 
         _obj = cls.model_validate(
             {
-                "clientId": obj.get("clientId"),
-                "contractKey": obj.get("contractKey"),
-                "quota": (
-                    UserQuotaObjStorageSchema.from_dict(obj["quota"])
-                    if obj.get("quota") is not None
-                    else None
-                ),
-                "usage": (
-                    UserUsageObjStorageSchema.from_dict(obj["usage"])
-                    if obj.get("usage") is not None
-                    else None
-                ),
+                "sizeUtilizedBytes": obj.get("sizeUtilizedBytes"),
+                "numObjects": obj.get("numObjects"),
             }
         )
         return _obj
