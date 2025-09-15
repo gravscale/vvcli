@@ -11,7 +11,7 @@ from ....abstract import (
 from ....utils import format_storage_size
 
 
-class CreateObjectStorageBucketCommand(
+class CreateBucketCommand(
     AbstractPrintException,
     AbstractPrintableTable,
     AbstractReadInputValue,

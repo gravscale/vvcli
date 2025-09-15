@@ -1,13 +1,25 @@
 import asyncclick as click
 
-from .usecase.create_bucket import CreateObjectStorageBucketCommand
-from .usecase.list_buckets import ListObjectStorageBucketsCommand
 from .... import CliConfiguration
+from . import usecase
 
 
 @click.group(name="bucket")
 async def obj_bucket_group():
-    """Buckets Object Storage"""
+    """Buckets
+    Comandos para gerenciar buckets de armazenamento de objetos
+
+    Exemplos de uso:
+
+    Adicionar bucket:
+        vvcli bucket add --client-id 123 --bucket-name meu-bucket --size-quota 1000 --max-objects 500 --json
+
+    Listar buckets:
+        vvcli bucket list --client-id 123 --json
+
+    Remover bucket:
+        vvcli bucket rm --client-id 123 --name meu-bucke
+    """
     pass
 
 
@@ -41,7 +53,7 @@ async def add_bucket(
     obj, client_id: int, bucket_name: str, size_quota: int, max_objects: int, json: bool
 ):
     cli_config: CliConfiguration = obj["config"]
-    await CreateObjectStorageBucketCommand(
+    await usecase.CreateBucketCommand(
         client_id,
         bucket_name,
         size_quota,
@@ -50,8 +62,8 @@ async def add_bucket(
     ).execute(json)
 
 
-@obj_bucket_group.command("get", help="Listar buckets de armazenamento de objetos")
-@click.option("--client-id", "-c", required=False, type=str, help="Client ID")
+@obj_bucket_group.command("list", help="Listar buckets de armazenamento de objetos")
+@click.option("--client-id", "-c", required=False, type=int, help="Client ID")
 @click.option(
     "--json",
     "-j",
@@ -63,6 +75,17 @@ async def add_bucket(
 @click.pass_obj
 async def list_buckets(obj, client_id: int, json: bool):
     cli_config: CliConfiguration = obj["config"]
-    await ListObjectStorageBucketsCommand(
+    await usecase.ListBucketsCommand(
         client_id, cli_config.load_sdk_configuration()
     ).execute(json)
+
+
+@obj_bucket_group.command("rm", help="Apagar bucket de armazenamento de objetos")
+@click.option("--client-id", "-c", required=False, type=int, help="Client ID")
+@click.option("--name", "-n", required=False, type=str, help="Nome do bucket")
+@click.pass_obj
+async def remove_bucket(obj, client_id: int, name: str):
+    cli_config: CliConfiguration = obj["config"]
+    await usecase.DeleteBucketCommand(
+        client_id, name, cli_config.load_sdk_configuration()
+    ).execute()

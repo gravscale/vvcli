@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "vvcli_sdk"
-version = "1.0.0"
-description = "PUBLIC - Gravscale Public Restful API"
+version = "1.1.0"
+description = "The public API allows users to authenticate to access accounts and contracts, as well as manage Object Storage contracts. With a focus on creating S3 credentials for users and sub-users, the solution simplifies resource management by providing an integrated and intuitive experience."
 authors = ["OpenAPI Generator Community <team@openapitools.org>"]
 license = "NoLicense"
 readme = "README.md"
 repository = "https://github.com/GIT_USER_ID/GIT_REPO_ID"
-keywords = ["OpenAPI", "OpenAPI-Generator", "PUBLIC - Gravscale Public Restful API"]
+keywords = ["OpenAPI", "OpenAPI-Generator", "vvcli_sdk"]
 include = ["vvcli_sdk/py.typed"]
 
 [tool.poetry.dependencies]

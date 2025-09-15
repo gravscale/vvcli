@@ -1,5 +1,7 @@
 from typing import List
 
+import click
+
 import vvcli_sdk
 from ...enum import EnumObjectStoragePrintableAttributes
 from ....abstract import (
@@ -11,7 +13,7 @@ from ....abstract import (
 from ....utils import format_storage_size
 
 
-class ListObjectStorageBucketsCommand(
+class ListBucketsCommand(
     AbstractPrintException,
     AbstractPrintableTable,
     AbstractReadInputValue,
@@ -60,6 +62,10 @@ class ListObjectStorageBucketsCommand(
                 buckets = api_instance.list_buckets(self._client_id)
         except vvcli_sdk.exceptions.ApiException as exc:
             await self.print_exception(exc)
+            return
+
+        if len(buckets.to_dict().get("items")) == 0:
+            click.echo("Nenhum bucket encontrado.")
             return
 
         if return_json:
